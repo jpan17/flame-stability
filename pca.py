@@ -131,6 +131,7 @@ def applyPCA (array, frameCount, test):
                               markerfacecolor = 'crimson', markersize = 10)]
     
     plt.legend(handles = legend_elements)
+    
     print(pca.explained_variance_ratio_)
     
     if choice == "1":
