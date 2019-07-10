@@ -77,7 +77,7 @@ def standardize (array):
 # =========================================================================== #
 
 # apply PCA with 2 components
-def applyPCA (array, frameCount):
+def applyPCA (array, frameCount, test):
     
     pca = PCA(n_components = 2)
     
@@ -325,7 +325,7 @@ def main():
             break
     
     features = standardize(features) 
-    applyPCA(features, frameCount)
+    applyPCA(features, frameCount, test)
     return
     
     
