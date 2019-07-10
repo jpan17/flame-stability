@@ -1,9 +1,11 @@
 import cv2
 import numpy as num 
+import sys
 # =========================================================================== #
 
 # read in the video
-fire = cv2.VideoCapture('fire.mp4')
+user = str(sys.argv[1])
+fire = cv2.VideoCapture(user)
 
 # check if video opened successfully
 if (fire.isOpened() == False):
@@ -13,6 +15,7 @@ if (fire.isOpened() == False):
 frameCount = 1
 ret, frame = fire.read()
 
+# record frame dimensions
 height, width, channels = frame.shape
 tallness = height
 wideness = width
@@ -26,11 +29,11 @@ while(fire.isOpened()):
         cv2.imshow('Fire', frame)
         
         # terminate the video before it finishes
-        if cv2.waitKey(25) == ord('q'):
+        if cv2.waitKey(10) == ord('q'):
             break
         
-        # record the frame number
-        if cv2.waitKey(25) == ord('w'):
+        # record the frame number but don't stop the video
+        if cv2.waitKey(10) == ord('w'):
             print("Stop at: " + str(frameCount))
         
     else:
@@ -39,5 +42,7 @@ while(fire.isOpened()):
 print("Total Number of Frames: " + str(frameCount))
 print("Height of video: " + str(tallness))
 print("Width of video: " + str(wideness))
+
+# close everything
 fire.release()
 cv2.destroyAllWindows()
