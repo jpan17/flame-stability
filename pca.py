@@ -30,35 +30,39 @@ def lumArray (image, height, width):
 # =========================================================================== #
 
 # for each pixel in an image, calculate RGB and store it in a 1D array 
-def rgbArray (image, height, width):
+def rgbArray (image, height, width, test):
     # array to return
     rgbs = []
     
     # extract RGB values
     frameB, frameG, frameR = cv2.split(image)
     
-    # # code for all RGB
-    # for row in range(0, height):
-    #     for col in range(0, width):
-    #         rgbs.append(frameR[row][col])
-    #         rgbs.append(frameG[row][col])
-    #         rgbs.append(frameB[row][col])
-    
+    # code for all RGB
+    if test == 'RGB':
+        for row in range(0, height):
+            for col in range(0, width):
+                rgbs.append(frameR[row][col])
+                rgbs.append(frameG[row][col])
+                rgbs.append(frameB[row][col])
+        
     # iterate through all pixels and add to array
     # R
-    for rowR in range(0, height):
-        for colR in range(0, width):
-            rgbs.append(frameR[rowR][colR])
+    if test == 'R':
+        for rowR in range(0, height):
+            for colR in range(0, width):
+                rgbs.append(frameR[rowR][colR])
             
-    # # G
-    # for rowG in range(0, height):
-    #     for colG in range(0, width):
-    #         rgbs.append(frameG[rowG][colG])
+    # G
+    if test == 'G':
+        for rowG in range(0, height):
+            for colG in range(0, width):
+                rgbs.append(frameG[rowG][colG])
             
-    # # B
-    # for rowB in range(0, height):
-    #     for colB in range(0, width):
-    #         rgbs.append(frameB[rowB][colB])
+    # B
+    if test == 'B':
+        for rowB in range(0, height):
+            for colB in range(0, width):
+                rgbs.append(frameB[rowB][colB])
 
     return rgbs
 
@@ -82,8 +86,7 @@ def applyPCA (array, frameCount):
     # print(len(principalComponents))
     
     # plot the figure if it's not rgb
-    if frameCount * 2 > len(principalComponents):
-        test = "Luminance"
+    if test != "luminance":
         for i in range (0, len(principalComponents)):
             if i >= 0 and i <= 100:
                 plt.scatter(principalComponents[i,0], principalComponents[i,1],
@@ -97,8 +100,7 @@ def applyPCA (array, frameCount):
     # code for all rgb; shouldn't get used for now
     else:
         print("you shouldn't be here")
-        
-        test = "RGB"
+
         for i in range (0, len(principalComponents)):
             if i >= 0 and i <= 3 * 100:
                 plt.scatter(principalComponents[i,0], principalComponents[i,1],
@@ -277,8 +279,23 @@ def main():
     vidHeight = height
     vidWidth = width 
     frameCount = 0
+    test = ''
     
-    choice = input("What features do you want to use? 1) luminance 2) rgb \n")
+    choice = input("What features do you want to use? 1) luminance 2) r 3) g" +
+                   " 4) b 5) RGB \n")
+    
+    if choice == '1': 
+        test = "Luminance"
+    elif choice == '2':
+        test = "R"
+    elif choice == '3':
+        test = "G"
+    elif choice == '4':
+        test = 'B'
+    elif choice == '5':
+        test = 'RGB'
+    else:
+        test = ''
     
     # display the video until 'q' is pressed or until it terminates
     while (fire.isOpened()):
@@ -292,11 +309,12 @@ def main():
             if choice == "1":
                 temp = lumArray(frame, vidHeight, vidWidth)
                 features.append(temp)
-            elif choice == "2":
-                temp = rgbArray(frame, vidHeight, vidWidth)
+            elif choice == "2" or choice == "3" or choice == "4":
+                temp = rgbArray(frame, vidHeight, vidWidth, test)
                 features.append(temp)
             else:
-                print("Your choice is invalid.")
+                print("Your choice is invalid or RGB hasn't been implemented" +
+                      " yet.")
                 break
                
             # terminates the video before it finishes
