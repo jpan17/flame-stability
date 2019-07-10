@@ -37,17 +37,18 @@ def rgbArray (image, height, width):
     # extract RGB values
     frameB, frameG, frameR = cv2.split(image)
     
-    for row in range(0, height):
-        for col in range(0, width):
-            rgbs.append(frameR[row][col])
-            rgbs.append(frameG[row][col])
-            rgbs.append(frameB[row][col])
+    # # code for all RGB
+    # for row in range(0, height):
+    #     for col in range(0, width):
+    #         rgbs.append(frameR[row][col])
+    #         rgbs.append(frameG[row][col])
+    #         rgbs.append(frameB[row][col])
     
     # iterate through all pixels and add to array
     # R
-    # for rowR in range(0, height):
-    #     for colR in range(0, width):
-    #         rgbs.append(frameR[rowR][colR])
+    for rowR in range(0, height):
+        for colR in range(0, width):
+            rgbs.append(frameR[rowR][colR])
             
     # # G
     # for rowG in range(0, height):
@@ -93,7 +94,10 @@ def applyPCA (array, frameCount):
             else:
                 plt.scatter(principalComponents[i,0], principalComponents[i,1],
                             c = "crimson")
+    # code for all rgb; shouldn't get used for now
     else:
+        print("you shouldn't be here")
+        
         test = "RGB"
         for i in range (0, len(principalComponents)):
             if i >= 0 and i <= 3 * 100:
@@ -113,6 +117,7 @@ def applyPCA (array, frameCount):
     choice = input("Do you want to apply 1) kmeans 2) affinity propogation" +
                    " or 3) mean shift to this data? Press enter to skip" +
                    " cluster step.\n")
+    
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                               label = 'Beginning (stable)',
                               markerfacecolor = 'yellow', markersize = 10),
