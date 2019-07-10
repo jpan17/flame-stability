@@ -4,7 +4,7 @@ import sys
 # =========================================================================== #
 
 # read in the video
-user = str(sys.argv)
+user = str(sys.argv[1])
 fire = cv2.VideoCapture(user)
 
 # check if video opened successfully
