@@ -18,7 +18,7 @@ def applyPCA (array, componentCount):
               " components")
     plt.xlabel("Component Number")
     plt.ylabel("Explained variance ratio")
-    
+     
     cumulative = 0
     second = plt.subplot(122)
     # plot cumulative variances
