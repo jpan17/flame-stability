@@ -66,7 +66,7 @@ def applyPCA (array, name):
         
     
     plt.title("3 Component PCA on Frame " + name + " Values (per pixel) with " +
-              user + " clustering")
+              choice + " clustering")
     
     plt.show()
     return
