@@ -1,21 +1,20 @@
+''' Is this what a docstring is '''
 import cv2
-import numpy as num 
-import numpy as np
 from sklearn.preprocessing import StandardScaler
-import matplotlib.pyplot as plt
 import luminance
 import rgb
 import twoComponentPCA
 # =========================================================================== #
 
-# standardize the values in this array
+# standardize values in array
 def standardize (array):
     
     standardized = StandardScaler().fit_transform(array)
-
     return standardized
+
 # =========================================================================== #
 
+# main function
 def main():
     
     features = []
