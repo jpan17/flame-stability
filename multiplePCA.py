@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
 # plot explained variance vs component number
-def applyPCA (array, componentCount):
+def applyPCA (array, componentCount, name):
     pca = PCA(n_components = componentCount)
     
     principalComponents = pca.fit_transform(array)
@@ -26,8 +26,8 @@ def applyPCA (array, componentCount):
         cumulative += pca.explained_variance_ratio_[i]
         plt.scatter(i, cumulative, c = 'red')
     
-    plt.title("Cumulative explained variance ratios for " + str(componentCount) +
-              " components")
+    plt.title("Cumulative explained variance ratios for " + name +
+              + " for " + str(componentCount) + " components")
     plt.xlabel("Component Number")
     plt.ylabel("Cumulative explained variance ratio")
     
