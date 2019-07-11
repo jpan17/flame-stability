@@ -27,7 +27,7 @@ def applyPCA (array, componentCount, name):
         plt.scatter(i, cumulative, c = 'red')
     
     plt.title("Cumulative explained variance ratios for " + name +
-              + " for " + str(componentCount) + " components")
+              " for " + str(componentCount) + " components")
     plt.xlabel("Component Number")
     plt.ylabel("Cumulative explained variance ratio")
     
