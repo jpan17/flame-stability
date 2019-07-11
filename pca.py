@@ -1,4 +1,3 @@
-''' Is this what a docstring is '''
 import cv2
 from sklearn.preprocessing import StandardScaler
 import luminance
