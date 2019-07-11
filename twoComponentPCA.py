@@ -5,6 +5,7 @@ from sklearn.cluster import AffinityPropagation
 from sklearn.cluster import MeanShift 
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+import numpy as np
 
 
 # apply PCA with 2 components
