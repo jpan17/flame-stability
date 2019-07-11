@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-from scipy.spatial import ConvexHull
+from scipy import spatial
 from sklearn.cluster import AffinityPropagation
 from sklearn.cluster import MeanShift 
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+import numpy as np
 
+# =========================================================================== #
 
 # apply PCA with 2 components
 def applyPCA (array, frameCount, test):
@@ -187,6 +189,6 @@ def applyMeanShift(array, test):
 def encircle(x, y, ax = None, **kw):
     if not ax: ax = plt.gca()
     p = np.c_[x, y]
-    hull = ConvexHull(p)
+    hull = spatial.qhull.ConvexHull(p)
     poly = plt.Polygon(p[hull.vertices,:], **kw)
     ax.add_patch(poly)
