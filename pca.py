@@ -90,7 +90,7 @@ def main():
         # threeComponentPCA.applyPCA(features, frameCount, test)
     elif choice2 == '3':
         componentCount = input("How many components do you want? \n")
-        multiplePCA.applyPCA(features, int(componentCount))
+        multiplePCA.applyPCA(features, int(componentCount), test)
     else:
         print("Gotta choose something else")
       
