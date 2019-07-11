@@ -8,17 +8,27 @@ def applyPCA (array, componentCount):
     principalComponents = pca.fit_transform(array)
     
     
-    plt.subplot(121)
-    # plot individual pcas
+    first = plt.subplot(121)
+    # plot individual explained variances
     for i in range(0, len(pca.explained_variance_ratio_)):
         plt.scatter(i, pca.explained_variance_ratio_[i],
-                    c = 'orange')
-        
+                    c = 'orange')    
+    
+    plt.title("Explained variance ratios for " + str(componentCount) +
+              " components")
+    plt.xlabel("Component Number")
+    plt.ylabel("Explained variance ratio")
     
     cumulative = 0
-    plt.subplot(122)
-    for i in range(0, len(pca.explained_variance_ratio)):
+    second = plt.subplot(122)
+    # plot cumulative variances
+    for i in range(0, len(pca.explained_variance_ratio_)):
         cumulative += pca.explained_variance_ratio_[i]
         plt.scatter(i, cumulative, c = 'red')
+    
+    plt.title("Cumulative explained variance ratios for " + str(componentCount) +
+              " components")
+    plt.xlabel("Component Number")
+    plt.ylabel("Cumulative explained variance ratio")
     
     plt.show()
