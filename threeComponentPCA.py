@@ -29,10 +29,13 @@ def applyPCA (array, name):
             graph.scatter(principalComponents[i,0], principalComponents[i,1],
                         principalComponents[i,2], c = 'crimson')
         
+    user = input("Do you want to apply 1) kmeans 2) affinity propogation" + 
+                 " or 3) mean shift to this data? Press enter to skip" + 
+                 " cluster step. \n")
+    
     graph.set_xlabel("Component 1")
     graph.set_ylabel("Component 2")
     graph.set_zlabel("Component 3")
-    plt.title("3 Component PCA on Frame " + name + " Values (per pixel)")
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                               label = 'Beginning (stable)',
@@ -45,10 +48,28 @@ def applyPCA (array, name):
                               markerfacecolor = 'crimson', markersize = 10)]
     
     plt.legend(handles = legend_elements)
+    choice = ''
+    if user == '1':
+        choice = 'k-means'
+        clusterNum = input("How many clusters do you want? (no more than 5) \n")
+        applyKmeans(principalComponents, int(clusterNum), graph)
+    elif user == '2':
+        choice = 'affinity propogation'
+        applyAffinity(principalComponents, graph)
+    elif user == '3':
+        choice = 'mean shift'
+        applyMeanShift(principalComponents, graph)
+    else:
+        plt.title("3 Component PCA on Frame " + name + " Values (per pixel)")
+        plt.show()
+        return
+        
     
-    applyKmeans(principalComponents, 3, graph)
+    plt.title("3 Component PCA on Frame " + name + " Values (per pixel) with " +
+              user + " clustering")
     
     plt.show()
+    return
     
 # =========================================================================== #
     
@@ -82,4 +103,69 @@ def applyKmeans(array, clusterNumber, graph):
             
     graph.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
                 kmeans.cluster_centers_[:,2], color = 'black')
+    return
+
+# =========================================================================== #
+
+# apply affinity propagation algorithm to data
+def applyAffinity(array, graph):
+    affinity = AffinityPropagation(damping = 0.5)
+    affinity.fit(array)
+    
+    # instnatiate  dictionaries
+    clustersX = {}
+    clustersY = {}
+    
+    for i in range(0, len(affinity.cluster_centers_)):
+        clustersX[i] = []
+        clustersY[i] = []
+    
+    # .. and fill them
+    for i in range(0, len(array)):
+        label = affinity.labels_[i]
+        clustersX[label].append(array[i, 0])
+        clustersY[label].append(array[i, 1])
+    
+  
+    # # encircle clusters
+    # for i in range(0, len(affinity.cluster_centers_)):
+    #     if len(clustersX[i]) > 2:
+    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
+    #                 alpha = 0.2)
+    
+    graph.scatter(affinity.cluster_centers_[:,0], affinity.cluster_centers_[:,1],
+                  affinity.cluster_centers_[:,2], color = 'black')
+    return
+
+# =========================================================================== #
+
+# apply mean shift algorithm to data
+def applyMeanShift(array, graph):
+    meanshift = MeanShift(bandwidth = 80, min_bin_freq = 5)
+    meanshift.fit(array)
+    
+    # instnatiate  dictionaries
+    clustersX = {}
+    clustersY = {}
+    
+    for i in range(0, len(meanshift.cluster_centers_)):
+        clustersX[i] = []
+        clustersY[i] = []
+    
+    # .. and fill them
+    for i in range(0, len(array)):
+        label = meanshift.labels_[i]
+        clustersX[label].append(array[i, 0])
+        clustersY[label].append(array[i, 1])
+    
+  
+    # encircle clusters
+    # for i in range(0, len(meanshift.cluster_centers_)):
+    #     if len(clustersX[i]) > 2:
+    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
+    #                 alpha = 0.2)
+  
+    graph.scatter(meanshift.cluster_centers_[:,0], meanshift.cluster_centers_[:,1],
+                meanshift.cluster_centers_[:,2], color = 'black')
+    
     return
