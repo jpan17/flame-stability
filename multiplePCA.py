@@ -7,7 +7,11 @@ def applyPCA (array, componentCount):
     
     principalComponents = pca.fit_transform(array)
     
+    # plot individual pcas
     for i in range(0, len(pca.explained_variance_ratio_)):
-        plt.scatter(i, pca.explained_variance_ratio_[i])
+        plt.scatter(i, pca.explained_variance_ratio_[i],
+                    c = 'orange')
         
+        
+    
     plt.show()
