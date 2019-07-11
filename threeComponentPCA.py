@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import numpy as np
 from matplotlib.lines import Line2D
+from sklearn.cluster import AffinityPropagation
+from sklearn.cluster import KMeans
+from sklearn.cluster import MeanShift
 
 # =========================================================================== #
 
@@ -43,4 +46,40 @@ def applyPCA (array, name):
     
     plt.legend(handles = legend_elements)
     
+    applyKmeans(principalComponents, 3, graph)
+    
     plt.show()
+    
+# =========================================================================== #
+    
+    # apply kmeans algorithm to data
+def applyKmeans(array, clusterNumber, graph):
+    
+    
+    kmeans = KMeans(n_clusters = clusterNumber)
+    kmeans.fit(array)
+    
+    # instnatiate  dictionaries
+    clustersX = {}
+    clustersY = {}
+    
+    for i in range(0, len(kmeans.cluster_centers_)):
+        clustersX[i] = []
+        clustersY[i] = []
+    
+    # .. and fill them
+    for i in range(0, len(array)):
+        label = kmeans.labels_[i]
+        clustersX[label].append(array[i, 0])
+        clustersY[label].append(array[i, 1])
+    
+  
+    # encircle clusters
+    # for i in range(0, len(kmeans.cluster_centers_)):
+    #     if len(clustersX[i]) > 2:
+    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
+    #                 alpha = 0.2)
+            
+    graph.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
+                kmeans.cluster_centers_[:,2], color = 'black')
+    return
