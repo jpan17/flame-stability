@@ -3,6 +3,7 @@ from sklearn.preprocessing import StandardScaler
 import luminance
 import rgb
 import twoComponentPCA
+import multiplePCA
 # =========================================================================== #
 
 # standardize values in array
@@ -77,7 +78,21 @@ def main():
             break
     
     features = standardize(features) 
-    twoComponentPCA.applyPCA(features, frameCount, test)
+    
+    choice2 = input("What would you like to do with the data? 1) Apply " +
+                    "2-component PCA 2) Apply 3-component PCA or 3) Examine " +
+                    "explained variance number of components \n")
+    
+    if choice2 == '1':
+        twoComponentPCA.applyPCA(features, frameCount, test)
+    elif choice2 == '2':
+        print("Not implemented yet")
+        # threeComponentPCA.applyPCA(features, frameCount, test)
+    elif choice2 == '3':
+        componentCount = input("How many components do you want? \n")
+        multiplePCA.applyPCA(features, int(componentCount))
+    else:
+        print("Gotta choose something else")
       
     
     fire.release()
