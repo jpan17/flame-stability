@@ -14,8 +14,8 @@ def applyPCA (array, componentCount, name):
         plt.scatter(i, pca.explained_variance_ratio_[i],
                     c = 'orange')    
     
-    plt.title("Explained variance ratios for " + str(componentCount) +
-              " components")
+    plt.title("Explained variance ratios for " + name + " for " +
+              str(componentCount) + " components")
     plt.xlabel("Component Number")
     plt.ylabel("Explained variance ratio")
      
