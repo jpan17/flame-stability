@@ -4,6 +4,7 @@ import luminance
 import rgb
 import twoComponentPCA
 import multiplePCA
+import threeComponentPCA
 # =========================================================================== #
 
 # standardize values in array
@@ -86,8 +87,7 @@ def main():
     if choice2 == '1':
         twoComponentPCA.applyPCA(features, frameCount, test)
     elif choice2 == '2':
-        print("Not implemented yet")
-        # threeComponentPCA.applyPCA(features, frameCount, test)
+        threeComponentPCA.applyPCA(features, test)
     elif choice2 == '3':
         componentCount = input("How many components do you want? \n")
         multiplePCA.applyPCA(features, int(componentCount))
