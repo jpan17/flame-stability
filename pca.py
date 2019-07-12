@@ -5,6 +5,7 @@ import rgb
 import twoComponentPCA
 import multiplePCA
 import threeComponentPCA
+import distancePCA
 # =========================================================================== #
 
 # standardize values in array
@@ -81,8 +82,10 @@ def main():
     features = standardize(features) 
     
     choice2 = input("What would you like to do with the data? 1) Apply " +
-                    "2-component PCA 2) Apply 3-component PCA or 3) Examine " +
-                    "explained variance number of components \n")
+                    "2-component PCA 2) Apply 3-component PCA 3) Examine " +
+                    "explained variance vs number of components or 4) " +
+                    "Examine Euclidean distance between stable and unstable " +
+                    " vs number of components\n")
     
     if choice2 == '1':
         twoComponentPCA.applyPCA(features, frameCount, test)
@@ -91,6 +94,9 @@ def main():
     elif choice2 == '3':
         componentCount = input("How many components do you want? \n")
         multiplePCA.applyPCA(features, int(componentCount), test)
+    elif choice2 == '4':
+        componentCount = input("How many components do you want? \n")
+        distancePCA.applyPCA(features, int(componentCount), test)
     else:
         print("Gotta choose something else")
       
