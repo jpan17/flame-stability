@@ -6,6 +6,8 @@ from matplotlib.lines import Line2D
 from sklearn.cluster import AffinityPropagation
 from sklearn.cluster import KMeans
 from sklearn.cluster import MeanShift
+import plotly.plotly as py 
+import pandas as pd
 
 # =========================================================================== #
 
@@ -73,7 +75,7 @@ def applyPCA (array, name):
     
 # =========================================================================== #
     
-    # apply kmeans algorithm to data
+# apply kmeans algorithm to data
 def applyKmeans(array, clusterNumber, graph):
     
     
@@ -93,13 +95,6 @@ def applyKmeans(array, clusterNumber, graph):
         label = kmeans.labels_[i]
         clustersX[label].append(array[i, 0])
         clustersY[label].append(array[i, 1])
-    
-  
-    # encircle clusters
-    # for i in range(0, len(kmeans.cluster_centers_)):
-    #     if len(clustersX[i]) > 2:
-    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
-    #                 alpha = 0.2)
             
     graph.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
                 kmeans.cluster_centers_[:,2], color = 'black')
@@ -125,13 +120,6 @@ def applyAffinity(array, graph):
         label = affinity.labels_[i]
         clustersX[label].append(array[i, 0])
         clustersY[label].append(array[i, 1])
-    
-  
-    # # encircle clusters
-    # for i in range(0, len(affinity.cluster_centers_)):
-    #     if len(clustersX[i]) > 2:
-    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
-    #                 alpha = 0.2)
     
     graph.scatter(affinity.cluster_centers_[:,0], affinity.cluster_centers_[:,1],
                   affinity.cluster_centers_[:,2], color = 'black')
@@ -159,13 +147,10 @@ def applyMeanShift(array, graph):
         clustersY[label].append(array[i, 1])
     
   
-    # encircle clusters
-    # for i in range(0, len(meanshift.cluster_centers_)):
-    #     if len(clustersX[i]) > 2:
-    #         encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
-    #                 alpha = 0.2)
-  
     graph.scatter(meanshift.cluster_centers_[:,0], meanshift.cluster_centers_[:,1],
                 meanshift.cluster_centers_[:,2], color = 'black')
     
     return
+
+def graph3D():
+    
