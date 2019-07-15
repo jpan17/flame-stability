@@ -22,7 +22,7 @@ def main():
     features = []
     
     # read in video
-    fire = cv2.VideoCapture('fire.mp4')
+    fire = cv2.VideoCapture('flame-spray.avi')
     
     # print error message if you can't read it in
     if (fire.isOpened() == False):
@@ -61,16 +61,18 @@ def main():
             cv2.imshow('Fire', frame)
             
             # handles user decision
-            if choice == "1":
-                temp = luminance.lumArray(frame, vidHeight, vidWidth)
-                features.append(temp)
-            elif choice == "2" or choice == "3" or choice == "4":
-                temp = rgb.rgbArray(frame, vidHeight, vidWidth, test)
-                features.append(temp)
-            else:
-                print("Your choice is invalid or RGB hasn't been implemented" +
-                      " yet.")
-                break
+            if (frameCount >= 400 and frameCount <= 900) or (frameCount >= 1000 and
+            frameCount <= 1500) or (frameCount >= 2660 and frameCount <= 2880):
+                if choice == "1":
+                    temp = luminance.lumArray(frame, vidHeight, vidWidth)
+                    features.append(temp)
+                elif choice == "2" or choice == "3" or choice == "4":
+                    temp = rgb.rgbArray(frame, vidHeight, vidWidth, test)
+                    features.append(temp)
+                else:
+                    print("Your choice is invalid or RGB hasn't been implemented" +
+                        " yet.")
+                    break
                
             # terminates the video before it finishes
             if cv2.waitKey(25) == ord('q'):
