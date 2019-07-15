@@ -74,7 +74,7 @@ def applyPCA (array, frameCount, test):
     elif choice == "3":
         applyMeanShift(principalComponents, test)
     else:
-        plt.title("2 Component PCA on Frame " + test + " Values (per pixel)")
+        plt.title("2 Component PCA on " + test + " Values (per pixel)")
         
     plt.show()
     return
@@ -109,7 +109,7 @@ def applyKmeans(array, clusterNumber, test):
             encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
                     alpha = 0.2)
     
-    plt.title("2 Component PCA on Frame " + test + " Values (per pixel) with " + 
+    plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
               "kmeans = " + str(clusterNumber))
     plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
                 color = 'black')
@@ -143,7 +143,7 @@ def applyAffinity(array, test):
             encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
                     alpha = 0.2)
     
-    plt.title("2 Component PCA on Frame " + test + " Values (per pixel) with " + 
+    plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
               "affinity propagation")
     plt.scatter(affinity.cluster_centers_[:,0], affinity.cluster_centers_[:,1],
                 color = 'black')
@@ -177,7 +177,7 @@ def applyMeanShift(array, test):
             encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
                     alpha = 0.2)
     
-    plt.title("2 Component PCA on Frame " + test + " Values (per pixel) with " + 
+    plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
               "mean shift")
     plt.scatter(meanshift.cluster_centers_[:,0], meanshift.cluster_centers_[:,1],
                 color = 'black')
