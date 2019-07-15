@@ -61,8 +61,8 @@ def main():
             cv2.imshow('Fire', frame)
             
             # handles user decision
-            if (frameCount >= 400 and frameCount <= 900) or (frameCount >= 1000 and
-            frameCount <= 1500) or (frameCount >= 2660 and frameCount <= 2880):
+            if (frameCount >= 700 and frameCount <= 800) or (frameCount >= 1200 and
+            frameCount <= 1300) or (frameCount >= 2700 and frameCount <= 2800):
                 if choice == "1":
                     temp = luminance.lumArray(frame, vidHeight, vidWidth)
                     features.append(temp)
@@ -75,7 +75,7 @@ def main():
                     break
                
             # terminates the video before it finishes
-            if cv2.waitKey(25) == ord('q'):
+            if cv2.waitKey(25) == ord('q') or frameCount > 2800:
                 break
             
         else:
