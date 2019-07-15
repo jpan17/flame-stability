@@ -49,7 +49,7 @@ def main():
                 features.append(temp)
                 
                 # terminates the video before it finishes
-                if cv2.waitKey(25) == ord('q') or frameCount > 2800:
+                if cv2.waitKey(25) == ord('q'):
                     break
                 
             else:
