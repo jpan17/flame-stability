@@ -21,10 +21,10 @@ def applyPCA (array, frameCount, test):
     # plot the figure if it's not rgb
     if test != "luminance":
         for i in range (0, len(principalComponents)):
-            if i >= 0 and i <= 500:
+            if i >= 0 and i <= 100:
                 plt.scatter(principalComponents[i,0], principalComponents[i,1],
                             c = 'yellow')
-            elif i > 500 and i < 1000:
+            elif i > 100 and i < 200:
                 plt.scatter(principalComponents[i,0], principalComponents[i,1],
                             c = "orange")
             else:
