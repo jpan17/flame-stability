@@ -12,7 +12,7 @@ def lumArray (image, height, width):
     
     # iterate through all pixels and add to array
     for row in range(0, height):
-        for col in range(0, width):
+        for col in range(0, int(width * 3 / 5)):
             luminances.append(frameL[row][col])
     
     return luminances
