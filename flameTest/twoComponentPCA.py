@@ -10,21 +10,21 @@ import matplotlib.cm as cm
 # =========================================================================== #
 
 # apply PCA with 2 components
-def applyPCA (array, frameCount, test):
+def applyPCA (array, frameCount, test, videos):
     
     pca = PCA(n_components = 2)
     
     principalComponents = pca.fit_transform(array)
-    numFrames = np.arange(len(array))
     colors = cm.rainbow(np.linspace(0, 1, len(array)))
+    frames = 0
     
-    for y, c in zip(numFrames, colors):
-        color = c
+    for c in range (0, len(colors)): 
+        color = colors[c]
         
-        for i in range (0, y):
-            plt.scatter(principalComponents[i, 0], principalComponents[i,1],
-                         color = c)
-        
+        for i in range(0, videos[c]):
+            plt.scatter(principalComponents[frames, 0], 
+                        principalComponents[frames, 1], c = color)
+            frames += 1 
     
     # plot the figure if it's not rgb
     # if test != "luminance":
