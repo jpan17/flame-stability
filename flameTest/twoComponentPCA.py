@@ -18,10 +18,10 @@ def applyPCA (array, frameCount, test):
     numFrames = np.arange(len(array))
     colors = cm.rainbow(np.linspace(0, 1, len(array)))
     
-    for y, c in zip (numFrames, colors):
+    for y, c in zip(numFrames, colors):
         color = c
         
-        for i in range (0, len(y)):
+        for i in range (0, y):
             plt.scatter(principalComponents[i, 0], principalComponents[i,1],
                          color = c)
         
