@@ -19,31 +19,31 @@ def applyPCA (array, frameCount, test):
     # print(len(principalComponents))
     
     # plot the figure if it's not rgb
-    if test != "luminance":
-        for i in range (0, len(principalComponents)):
-            if i >= 0 and i <= 100:
-                plt.scatter(principalComponents[i,0], principalComponents[i,1],
-                            c = 'yellow')
-            elif i > 100 and i < 260:
-                plt.scatter(principalComponents[i,0], principalComponents[i,1],
-                            c = "orange")
-            else:
-                plt.scatter(principalComponents[i,0], principalComponents[i,1],
-                            c = "crimson")
-    # code for all rgb; shouldn't get used for now
-    else:
-        print("you shouldn't be here")
+    # if test != "luminance":
+    #     for i in range (0, len(principalComponents)):
+    #         if i >= 0 and i <= 100:
+    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                         c = 'yellow')
+    #         elif i > 100 and i < 260:
+    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                         c = "orange")
+    #         else:
+    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                         c = "crimson")
+    # # code for all rgb; shouldn't get used for now
+    # else:
+    #     print("you shouldn't be here")
 
-        for i in range (0, len(principalComponents)):
-            if i >= 0 and i <= 3 * 100:
-                plt.scatter(principalComponents[i,0], principalComponents[i,1],
-                            c = 'yellow')
-            elif i > 3 * 100 and i < 3 * 260:
-                plt.scatter(principalComponents[i,0], principalComponents[i,1],
-                            c = "orange")
-            else:
-                plt.scatter(principalComponents[i,0], principalComponents[i,1],
-                            c = "crimson")              
+    #     for i in range (0, len(principalComponents)):
+    #         if i >= 0 and i <= 3 * 100:
+    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                         c = 'yellow')
+    #         elif i > 3 * 100 and i < 3 * 260:
+    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                         c = "orange")
+    #         else:
+    #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                         c = "crimson")              
 
     plt.xlabel("Principal Component 1")
     plt.ylabel("Principal Component 2")

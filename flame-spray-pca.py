@@ -19,6 +19,7 @@ def main():
     df = pandas.read_csv('EtOH_flamemap.csv')
     
     features = []
+    frameCount = 0    
     
     for i in range(0, len(df['File name'])):
         
@@ -34,7 +35,6 @@ def main():
         height, width, channels = frame.shape
         vidHeight = height
         vidWidth = width 
-        frameCount = 0
         test = ''
         
         # display the video until 'q' is pressed or until it terminates
@@ -45,18 +45,19 @@ def main():
             if ret == True:
                 cv2.imshow('Fire', frame)
                 
-                temp = luminance.lumArray(frame, vidHeight, vidWidth)
-                features.append(temp)
+                if frameCount % 10 == 0: 
+                    temp = luminance.lumArray(frame, vidHeight, vidWidth)
+                    features.append(temp)
                 
                 # terminates the video before it finishes
-                if cv2.waitKey(25) == ord('q') or frameCount > 2800:
+                if cv2.waitKey(25) == ord('q'):
                     break
                 
             else:
                 break
             
     features = standardize(features)
-    
+    print(frameCount)
     print(features.shape)
     
     twoComponentPCA.applyPCA(features, frameCount, 'test')
