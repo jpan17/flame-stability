@@ -21,7 +21,7 @@ def applyPCA (array, frameCount, test, videos):
     for c in range (0, len(colors)): 
         color = colors[c]
         
-        for i in range(0, videos[c]):
+        for i in range(0, videos[c] - 1):
             plt.scatter(principalComponents[frames, 0], 
                         principalComponents[frames, 1], c = color)
             frames += 1 

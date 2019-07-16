@@ -51,6 +51,7 @@ def main():
                 if frameCount % 15 == 0: 
                     temp = luminance.lumArray(frame, vidHeight, vidWidth)
                     features.append(temp)
+                    numFrames += 1
                 
                 # terminates the video before it finishes
                 if cv2.waitKey(25) == ord('q'):
