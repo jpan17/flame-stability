@@ -17,13 +17,15 @@ def applyPCA (array, frameCount, test, videos):
     principalComponents = pca.fit_transform(array)
     colors = cm.rainbow(np.linspace(0, 1, len(array)))
     frames = 0
+    print(colors)
     
-    for c in range (0, len(colors)): 
+    for c in range(0, len(colors)):
         color = colors[c]
-        
-        for i in range(0, videos[c]):
-            plt.scatter(principalComponents[frames, 0], 
-                        principalComponents[frames, 1], c = color)
+        print(videos[c])
+        for i in range (0, videos[c]):
+            plt.scatter(principalComponents[frames, 0], principalComponents[frames,1],
+                         c = color)
+            print(i)
             frames += 1 
     
     # plot the figure if it's not rgb
