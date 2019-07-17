@@ -28,7 +28,7 @@ def edgeDetection():
                 
                 cv2.imshow('default', frame)
                 
-                clahe = cv2.createCLAHE(clipLimit = 15, tileGridSize = (8,8))
+                clahe = cv2.createCLAHE(clipLimit = 15, tileGridSize = (6,6))
                 lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
                 l, a, b = cv2.split(lab)
                 l2 = clahe.apply(l)
@@ -39,9 +39,9 @@ def edgeDetection():
                 grayscale = cv2.cvtColor(newFrame, cv2.COLOR_BGR2GRAY)
                 cv2.imshow('grayscale', grayscale)
                 
-                gray_filtered = cv2.bilateralFilter(grayscale, 5, 25, 25)
+                gray_filtered = cv2.bilateralFilter(grayscale, 5, 35, 35)
                 
-                edges_filtered = cv2.Canny(gray_filtered, 50, 50)
+                edges_filtered = cv2.Canny(gray_filtered, 40, 50)
                 cv2.imshow('Bilateral', edges_filtered)
                 
                 # laplacian = cv2.Laplacian(frame, cv2.CV_64F)
