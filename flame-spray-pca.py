@@ -61,11 +61,11 @@ def main():
                 videos.append(numFrames)
                 break
             
-    features = standardize(features)
-    print(frameCount)
-    print(features.shape)
+    # features = standardize(features)
+    # print(frameCount)
+    # print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, 'test', videos)
+    # twoComponentPCA.applyPCA(features, frameCount, 'test', videos)
         
     fire.release()
     cv2.destroyAllWindows()
