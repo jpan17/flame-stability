@@ -20,8 +20,11 @@ def main():
     
     features = []
     frameCount = 0    
+    videos = []
     
     for i in range(0, len(df['File name'])):
+        
+        numFrames = 0
         
         # read in video
         fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
@@ -45,22 +48,24 @@ def main():
             if ret == True:
                 cv2.imshow('Fire', frame)
                 
-                if frameCount % 10 == 0: 
+                if frameCount % 15 == 0: 
                     temp = luminance.lumArray(frame, vidHeight, vidWidth)
                     features.append(temp)
+                    numFrames += 1
                 
                 # terminates the video before it finishes
                 if cv2.waitKey(25) == ord('q'):
                     break
                 
             else:
+                videos.append(numFrames)
                 break
             
-    features = standardize(features)
-    print(frameCount)
-    print(features.shape)
+    # features = standardize(features)
+    # print(frameCount)
+    # print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, 'test')
+    # twoComponentPCA.applyPCA(features, frameCount, 'test', videos)
         
     fire.release()
     cv2.destroyAllWindows()

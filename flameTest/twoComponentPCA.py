@@ -6,18 +6,27 @@ from sklearn.cluster import MeanShift
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 import numpy as np
-
+import matplotlib.cm as cm
 # =========================================================================== #
 
 # apply PCA with 2 components
-def applyPCA (array, frameCount, test):
+def applyPCA (array, frameCount, test, videos):
     
     pca = PCA(n_components = 2)
     
     principalComponents = pca.fit_transform(array)
+    colors = cm.rainbow(np.linspace(0, 1, len(videos)))
+    frames = 0
+    print(len(colors))
+    print(colors[0])
     
-    # print(len(principalComponents))
-    
+    for c in range(0, len(colors)):
+        color = colors[c]
+        for i in range(0, videos[c]):
+            plt.scatter(principalComponents[frames, 0], 
+                        principalComponents[frames, 1], c = color)
+            frames += 1 
+        
     # plot the figure if it's not rgb
     # if test != "luminance":
     #     for i in range (0, len(principalComponents)):
@@ -53,18 +62,18 @@ def applyPCA (array, frameCount, test):
                    " or 3) mean shift to this data? Press enter to skip" +
                    " cluster step.\n")
     
-    legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'Beginning (stable)',
-                              markerfacecolor = 'yellow', markersize = 10),
-                       Line2D([0],[0], marker = 'o', color = 'w',
-                              label = 'Middle (unstable)',
-                              markerfacecolor = 'orange', markersize = 10),
-                       Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'End (stable)',
-                              markerfacecolor = 'crimson', markersize = 10)]
+    # legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
+    #                           label = 'Beginning (stable)',
+    #                           markerfacecolor = 'yellow', markersize = 10),
+    #                    Line2D([0],[0], marker = 'o', color = 'w',
+    #                           label = 'Middle (unstable)',
+    #                           markerfacecolor = 'orange', markersize = 10),
+    #                    Line2D([0],[0], marker = 'o', color = 'w', 
+    #                           label = 'End (stable)',
+    #                           markerfacecolor = 'crimson', markersize = 10)]
     
-    plt.legend(handles = legend_elements)
-    print(pca.explained_variance_ratio_)
+    # plt.legend(handles = legend_elements)
+    # print(pca.explained_variance_ratio_)
     
     if choice == "1":
         clusterNum = input("How many clusters do you want? (no more than 5) \n")
