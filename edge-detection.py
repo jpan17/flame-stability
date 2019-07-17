@@ -25,15 +25,29 @@ def edgeDetection():
             ret, frame = fire.read()
             
             if ret == True:
-                grayscale = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                
-                enhancer = ImageEnhance.Sharpness(frame)
                 
                 cv2.imshow('default', frame)
+                
+                clahe = cv2.createCLAHE(clipLimit = 15, tileGridSize = (8,8))
+                lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+                l, a, b = cv2.split(lab)
+                l2 = clahe.apply(l)
+                
+                lab = cv2.merge((l2,a,b))
+                newFrame = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+                cv2.imshow('Contrast', newFrame)
+                grayscale = cv2.cvtColor(newFrame, cv2.COLOR_BGR2GRAY)
+                cv2.imshow('grayscale', grayscale)
+                
+                gray_filtered = cv2.bilateralFilter(grayscale, 5, 25, 25)
+                
+                edges_filtered = cv2.Canny(gray_filtered, 50, 50)
+                cv2.imshow('Bilateral', edges_filtered)
+                
                 # laplacian = cv2.Laplacian(frame, cv2.CV_64F)
-                # sobelx = cv2.Sobel(frame, cv2.CV_64F, 1, 0, ksize = 5)
+                # sobelx = cv2.Sobel(newFrame, cv2.CV_64F, 1, 0, ksize = 3)
                 # sobely = cv2.Sobel(frame, cv2.CV_64F, 0, 1, ksize = 5)
-                # edges = cv2.Canny(frame, 25, 50)
+                # edges = cv2.Canny(newFrame, 50, 100)
                 
                 # cv2.imshow('laplacian', laplacian)
                 # cv2.imshow('sobelx', sobelx)
