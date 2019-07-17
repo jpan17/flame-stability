@@ -1,0 +1,68 @@
+import cv2
+import csv
+import numpy as np
+import pandas
+from PIL import Image
+from PIL import ImageEnhance
+# =========================================================================== #
+
+def edgeDetection():
+    
+    df = pandas.read_csv('EtOH_flamemap.csv')
+
+    
+    for i in range(0, len(df['File name'])):
+        
+        # read in video
+        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
+        
+        # print error message if you can't read it in
+        if (fire.isOpened() == False):
+            print("Error opening video file or stream")
+
+        # display the video until 'q' is pressed or until it terminates
+        while (fire.isOpened()):
+            ret, frame = fire.read()
+            
+            if ret == True:
+                
+                cv2.imshow('default', frame)
+                
+                clahe = cv2.createCLAHE(clipLimit = 15, tileGridSize = (8,8))
+                lab = cv2.cvtColor(frame, cv2.COLOR_BGR2LAB)
+                l, a, b = cv2.split(lab)
+                l2 = clahe.apply(l)
+                
+                lab = cv2.merge((l2,a,b))
+                newFrame = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+                cv2.imshow('Contrast', newFrame)
+                grayscale = cv2.cvtColor(newFrame, cv2.COLOR_BGR2GRAY)
+                cv2.imshow('grayscale', grayscale)
+                
+                gray_filtered = cv2.bilateralFilter(grayscale, 5, 25, 25)
+                
+                edges_filtered = cv2.Canny(gray_filtered, 50, 50)
+                cv2.imshow('Bilateral', edges_filtered)
+                
+                # laplacian = cv2.Laplacian(frame, cv2.CV_64F)
+                # sobelx = cv2.Sobel(newFrame, cv2.CV_64F, 1, 0, ksize = 3)
+                # sobely = cv2.Sobel(frame, cv2.CV_64F, 0, 1, ksize = 5)
+                # edges = cv2.Canny(newFrame, 50, 100)
+                
+                # cv2.imshow('laplacian', laplacian)
+                # cv2.imshow('sobelx', sobelx)
+                # cv2.imshow('sobely', sobely)
+                # cv2.imshow('edges', edges)
+
+                # terminates the video before it finishes
+                if cv2.waitKey(25) == ord('q'):
+                    break
+                
+            else:
+                break
+   
+    fire.release()
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    edgeDetection()
