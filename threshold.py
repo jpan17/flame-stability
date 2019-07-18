@@ -9,9 +9,10 @@ def threshold():
     df = pandas.read_csv('EtOH_flamemap.csv')
     
     frameCount = 0 
+    videoCount = 0
     
     for i in range(0, len(df['File name'])):
-        print('hielo')
+        
         fileName = df['File name'][i]
         fire = cv2.VideoCapture('./fireFiles/' + fileName)
         
@@ -22,13 +23,13 @@ def threshold():
             
             ret, frame = fire.read()
             
-            frameCount += 1
-            
-            if frameCount == 1: 
-                cv2.imwrite("./testImage.png", frame)
-            
             if ret == True:
-                print('hi')
+                
+                # use 60 for just the inside flame
+                grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                retval, threshold = cv2.threshold(grayscaled, 20, 255,
+                                                  cv2.THRESH_BINARY)
+                cv2.imshow('threshold', threshold)
                 cv2.imshow('default', frame)
                 
                 if cv2.waitKey(25) == ord('q'):
@@ -36,8 +37,8 @@ def threshold():
                 
             else:
                 break
-        fire.release()
-        cv2.destroyAllWindows()
+    fire.release()
+    cv2.destroyAllWindows()
         
 if __name__ == "__main__":
     threshold()
