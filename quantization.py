@@ -23,7 +23,7 @@ def quantization():
         height, width, channels = frame.shape
         frameWidth = width
         frameHeight = height
-        out = cv2.VideoWriter('quantization' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
+        out = cv2.VideoWriter('quantization-' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
                               30, (frameWidth, frameHeight))
         
         if (fire.isOpened() == False):
