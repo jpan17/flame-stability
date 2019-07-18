@@ -13,6 +13,8 @@ def threshold():
     
     for i in range(0, len(df['File name'])):
         
+        videoCount += 1
+        
         fileName = df['File name'][i]
         fire = cv2.VideoCapture('./fireFiles/' + fileName)
         
@@ -31,6 +33,8 @@ def threshold():
                                                   cv2.THRESH_BINARY)
                 cv2.imshow('threshold', threshold)
                 cv2.imshow('default', frame)
+                
+                frameCount += 1
                 
                 if cv2.waitKey(25) == ord('q'):
                     break
