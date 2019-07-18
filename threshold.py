@@ -41,6 +41,7 @@ def threshold():
                 
             else:
                 break
+    
     fire.release()
     cv2.destroyAllWindows()
         
