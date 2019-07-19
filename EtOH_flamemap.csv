@@ -1,4 +1,4 @@
-File name,# Liquid Flow Rate (mL/min) , Atomization O2 Flow Rate (L/min) , Sheath O2 Flow Rate (L/min) , ER1 (EtOH/AtomO2) , ER2 (EtOH/AtomO2+SheathO2),Burner Cap Temperature,Stable? 
+File name,# Liquid Flow Rate (mL/min) , Atomization O2 Flow Rate (L/min) , Sheath O2 Flow Rate (L/min) , ER1 (EtOH/AtomO2) , ER2 (EtOH/AtomO2+SheathO2),Burner Cap Temperature,Stability
 flame-spray-40.avi,6.66E+00,1.13E+01,1.29E+01,5.10E-01,2.40E-01,2.03E+02,0.00E+00
 flame-spray-38.avi,7.38E+00,1.17E+01,1.15E+01,5.50E-01,2.80E-01,1.98E+02,0.00E+00
 flame-spray-36.avi,7.62E+00,1.19E+01,7.50E+00,5.60E-01,3.40E-01,1.91E+02,0.00E+00

@@ -21,13 +21,14 @@ def main():
     features = []
     frameCount = 0    
     videos = []
+    stability = []
     
     for i in range(0, len(df['File name'])):
         
         numFrames = 0
         
         # read in video
-        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
+        fire = cv2.VideoCapture('./threshold20/threshold20-' + df['File name'][i])
         
         # print error message if you can't read it in
         if (fire.isOpened() == False):
@@ -39,6 +40,7 @@ def main():
         vidHeight = height
         vidWidth = width 
         test = ''
+        stability.append(int(df['Stability'][i]))
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened()):
@@ -61,11 +63,12 @@ def main():
                 videos.append(numFrames)
                 break
             
-    # features = standardize(features)
-    # print(frameCount)
-    # print(features.shape)
+    features = standardize(features)
+    print(frameCount)
+    print(features.shape)
     
-    # twoComponentPCA.applyPCA(features, frameCount, 'test', videos)
+    twoComponentPCA.applyPCA(features, frameCount, '.685 variance ratio', videos,
+                             stability)
         
     fire.release()
     cv2.destroyAllWindows()
