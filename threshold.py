@@ -38,6 +38,7 @@ def threshold():
                 grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 retval, threshold = cv2.threshold(grayscaled, 20, 255,
                                                   cv2.THRESH_BINARY)
+                threshold[np.where((image == [0,0,0]))]
                 cv2.imshow('threshold', threshold)
                 cv2.imshow('default', frame)
                 threshold = cv2.cvtColor(threshold, cv2.COLOR_GRAY2BGR)
