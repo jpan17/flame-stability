@@ -36,7 +36,7 @@ def threshold():
                 
                 # use 60 for just the inside flame, 20 for outside
                 grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                retval, threshold = cv2.threshold(grayscaled, 60, 255,
+                retval, threshold = cv2.threshold(grayscaled, 20, 255,
                                                   cv2.THRESH_BINARY)
                 cv2.imshow('threshold', threshold)
                 cv2.imshow('default', frame)
