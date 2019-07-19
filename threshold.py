@@ -22,7 +22,7 @@ def threshold():
         height, width, channels = frame.shape
         frameWidth = width
         frameHeight = height
-        out = cv2.VideoWriter('threshold60-' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
+        out = cv2.VideoWriter('threshold20-' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
                               30, (frameWidth, frameHeight))
         
         if (fire.isOpened() == False):
