@@ -17,7 +17,7 @@ def main():
         fileName = df['File name'][i]        
         isStable = df['Stability'][i]
         
-        if isStable == '1':
+        if isStable == 1:
             stability = "stable"
         else:
             stability = "unstable"
@@ -39,10 +39,11 @@ def main():
                 
                 cv2.imshow('Fire', frame)
                 
-                if frameCount % 15 == 0:
+                if frameCount % 30 == 0:
                     numFrames += 1
                     name = "image_" + str(numFrames) + "_" + stability + ".png"
                     print(name)
+                    cv2.imwrite('./imageData/' + name, frame)
                 
                 if cv2.waitKey(25) == ord('q'):
                     break

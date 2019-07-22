@@ -65,13 +65,13 @@ def main():
         
     totalAverage = sum(averages) / len(averages)
     averages -= totalAverage
-    totalAverage *= 0.15
+    totalAverage *= 0.10
     
     plt.axhline(totalAverage, c = 'black')
     plt.axhline(-totalAverage, c = 'black')
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'Thresholds (within 15% of the average)',
+                              label = 'Thresholds (within 10% of the average)',
                               markerfacecolor = 'black', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
                               label = 'Luminance difference from mean',
