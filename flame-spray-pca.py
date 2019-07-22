@@ -28,7 +28,7 @@ def main():
         numFrames = 0
         
         # read in video
-        fire = cv2.VideoCapture('./threshold20/threshold20-' + df['File name'][i])
+        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
         
         # print error message if you can't read it in
         if (fire.isOpened() == False):
@@ -50,7 +50,7 @@ def main():
             if ret == True:
                 cv2.imshow('Fire', frame)
                 
-                if frameCount % 15 == 0: 
+                if frameCount % 1 == 0: 
                     temp = luminance.lumArray(frame, vidHeight, vidWidth)
                     features.append(temp)
                     numFrames += 1
@@ -67,7 +67,7 @@ def main():
     print(frameCount)
     print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, '.685 variance ratio', videos,
+    twoComponentPCA.applyPCA(features, frameCount, 'original', videos,
                              stability)
         
     fire.release()

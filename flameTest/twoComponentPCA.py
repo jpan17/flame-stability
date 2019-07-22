@@ -20,7 +20,7 @@ def applyPCA (array, frameCount, test, videos, stability):
     for i in range(0, len(videos)):
         isStable = stability[i]
         for j in range(0, videos[i]):
-            if isStable == 0: 
+            if isStable == 1: 
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'blue')
             else:
@@ -86,6 +86,16 @@ def applyPCA (array, frameCount, test, videos, stability):
     #                           markerfacecolor = 'crimson', markersize = 10)]
     
     # plt.legend(handles = legend_elements)
+    
+     
+    legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
+                              label = 'Stable',
+                              markerfacecolor = 'blue', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Unstable',
+                              markerfacecolor = 'red', markersize = 10)]
+    
+    plt.legend(handles = legend_elements)
     print(pca.explained_variance_ratio_)
     
     if choice == "1":
@@ -96,7 +106,7 @@ def applyPCA (array, frameCount, test, videos, stability):
     elif choice == "3":
         applyMeanShift(principalComponents, test)
     else:
-        plt.title("2 Component PCA on " + test + " Values (per pixel)")
+        plt.title("2 Component PCA on " + test + " Pixel Values")
         
     plt.show()
     return
