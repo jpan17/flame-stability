@@ -23,12 +23,13 @@ def main():
     videos = []
     stability = []
     
-    for i in range(0, len(df['File name'])):
+    for i in range(0, len(df['File name']) - 1):
         
         numFrames = 0
         
         # read in video
         fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
+        print(df['File name'][i])
         
         # print error message if you can't read it in
         if (fire.isOpened() == False):
@@ -40,7 +41,7 @@ def main():
         vidHeight = height
         vidWidth = width 
         test = ''
-        stability.append(int(df['Stability'][i]))
+        stability.append(int(df['Stability10'][i]))
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened()):
@@ -50,7 +51,7 @@ def main():
             if ret == True:
                 cv2.imshow('Fire', frame)
                 
-                if frameCount % 1 == 0: 
+                if frameCount % 15 == 0: 
                     temp = luminance.lumArray(frame, vidHeight, vidWidth)
                     features.append(temp)
                     numFrames += 1
