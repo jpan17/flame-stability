@@ -13,8 +13,17 @@ def threshold():
     
     for i in range(0, len(df['File name'])):
         
+        videoCount += 1
+        
         fileName = df['File name'][i]
         fire = cv2.VideoCapture('./fireFiles/' + fileName)
+        
+        ret, frame = fire.read()
+        height, width, channels = frame.shape
+        frameWidth = width
+        frameHeight = height
+        out = cv2.VideoWriter('threshold60-' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
+                              30, (frameWidth, frameHeight))
         
         if (fire.isOpened() == False):
             print("Error opening video file or stream")
@@ -25,18 +34,24 @@ def threshold():
             
             if ret == True:
                 
-                # use 60 for just the inside flame
+                # use 60 for just the inside flame, 20 for outside
                 grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                retval, threshold = cv2.threshold(grayscaled, 20, 255,
+                retval, threshold = cv2.threshold(grayscaled, 60, 255,
                                                   cv2.THRESH_BINARY)
                 cv2.imshow('threshold', threshold)
                 cv2.imshow('default', frame)
+                threshold = cv2.cvtColor(threshold, cv2.COLOR_GRAY2BGR)
+                
+                out.write(threshold)
+                
+                frameCount += 1
                 
                 if cv2.waitKey(25) == ord('q'):
                     break
                 
             else:
                 break
+    
     fire.release()
     cv2.destroyAllWindows()
         
