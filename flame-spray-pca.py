@@ -28,7 +28,7 @@ def main():
         numFrames = 0
         
         # read in video
-        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
+        fire = cv2.VideoCapture('./together/together-' + df['File name'][i])
         print(df['File name'][i])
         
         # print error message if you can't read it in
