@@ -22,8 +22,8 @@ def threshold():
         height, width, channels = frame.shape
         frameWidth = width
         frameHeight = height
-        # out = cv2.VideoWriter('threshold60-' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
-        #                       30, (frameWidth, frameHeight))
+        out = cv2.VideoWriter('threshold100-' + fileName, cv2.VideoWriter_fourcc(*'XVID'),
+                              30, (frameWidth, frameHeight))
         
         if (fire.isOpened() == False):
             print("Error opening video file or stream")
@@ -36,7 +36,7 @@ def threshold():
                 
                 # use 60 for just the inside flame, 20 for outside
                 grayscaled = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                retval, threshold = cv2.threshold(grayscaled, 90, 255,
+                retval, threshold = cv2.threshold(grayscaled, 100, 255,
                                                   cv2.THRESH_BINARY)
                 
                 threshold = cv2.cvtColor(threshold, cv2.COLOR_GRAY2BGR)
@@ -44,7 +44,7 @@ def threshold():
                 cv2.imshow('threshold', threshold)
                 cv2.imshow('default', frame)
                 
-                # out.write(threshold)
+                out.write(threshold)
                 
                 frameCount += 1
                 

@@ -14,17 +14,17 @@ def main():
         
         videoCount += 1
         
-        background = 'threshold20-' + df['File name'][i]
-        foreground = 'threshold60-' + df['File name'][i]
+        background = 'together-' + df['File name'][i]
+        foreground = 'threshold100-' + df['File name'][i]
         
-        blueFire = cv2.VideoCapture('./threshold20/' + background)
-        redFire = cv2.VideoCapture('./threshold60/' + foreground)
+        blueFire = cv2.VideoCapture('./together/' + background)
+        redFire = cv2.VideoCapture('./threshold100/' + foreground)
         
         bRet, bFrame = blueFire.read()
         height, width, channels = bFrame.shape
         frameWidth = width
         frameHeight = height
-        out = cv2.VideoWriter('together-' + df['File name'][i], cv2.VideoWriter_fourcc(*'XVID'),
+        out = cv2.VideoWriter('moreTogether-' + df['File name'][i], cv2.VideoWriter_fourcc(*'XVID'),
                               30, (frameWidth, frameHeight))
 
         if (blueFire.isOpened() == False or redFire.isOpened() == False):
@@ -40,7 +40,7 @@ def main():
                 cv2.imshow('Blue Fire', bFrame)
                 cv2.imshow('Red Fire', rFrame)
                 
-                blended = cv2.addWeighted(bFrame, 0.5, rFrame, 0.5, 0)
+                blended = cv2.addWeighted(bFrame, 0.7, rFrame, 0.3, 0)
                 cv2.imshow('Blended', blended)
                 
                 out.write(blended)

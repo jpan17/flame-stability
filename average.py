@@ -13,8 +13,8 @@ def averageLine(image):
     frame = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(frame)
     
-    for row in range(230, 270):
-        for col in range(470, 471):
+    for row in range(0, 480):
+        for col in range(0, 480):
             total += l[row][col]
             count += 1
             
@@ -37,7 +37,7 @@ def main():
         
     #     videoCount += 1
         
-    fileName = "flame-spray-54.avi"
+    fileName = "flame-spray-53.avi"
     fire = cv2.VideoCapture('./fireFiles/' + fileName)
         
     ret, frame = fire.read()
@@ -65,13 +65,16 @@ def main():
         
     totalAverage = sum(averages) / len(averages)
     averages -= totalAverage
-    totalAverage *= 0.10
+    first = totalAverage * 0.10
+    second = totalAverage * 0.15
     
-    plt.axhline(totalAverage, c = 'black')
-    plt.axhline(-totalAverage, c = 'black')
+    plt.axhline(first, c = 'black')
+    plt.axhline(-first, c = 'black')
+    plt.axhline(-second, c = 'black')
+    plt.axhline(second, c = 'black')
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'Thresholds (within 10% of the average)',
+                              label = 'Thresholds (within 10%, 15% of the average)',
                               markerfacecolor = 'black', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
                               label = 'Luminance difference from mean',
