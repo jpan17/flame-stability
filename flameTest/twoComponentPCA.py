@@ -10,22 +10,35 @@ import matplotlib.cm as cm
 # =========================================================================== #
 
 # apply PCA with 2 components
-def applyPCA (array, frameCount, test, videos):
+def applyPCA (array, frameCount, test, videos, stability):
     
     pca = PCA(n_components = 2)
     
     principalComponents = pca.fit_transform(array)
-    colors = cm.rainbow(np.linspace(0, 1, len(videos)))
     frames = 0
-    print(len(colors))
-    print(colors[0])
     
-    for c in range(0, len(colors)):
-        color = colors[c]
-        for i in range(0, videos[c]):
-            plt.scatter(principalComponents[frames, 0], 
-                        principalComponents[frames, 1], c = color)
-            frames += 1 
+    for i in range(0, len(videos)):
+        isStable = stability[i]
+        for j in range(0, videos[i]):
+            if isStable == 1: 
+                plt.scatter(principalComponents[frames, 0],
+                            principalComponents[frames, 1], c = 'blue')
+            else:
+                plt.scatter(principalComponents[frames, 0],
+                            principalComponents[frames, 1], c = 'red')
+            
+            frames += 1
+    # colors = cm.rainbow(np.linspace(0, 1, len(videos)))
+    # frames = 0
+    # print(len(colors))
+    # print(colors[0])
+    
+    # for c in range(0, len(colors)):
+    #     color = colors[c]
+    #     for i in range(0, videos[c]):
+    #         plt.scatter(principalComponents[frames, 0], 
+    #                     principalComponents[frames, 1], c = color)
+    #         frames += 1 
         
     # plot the figure if it's not rgb
     # if test != "luminance":
@@ -73,7 +86,17 @@ def applyPCA (array, frameCount, test, videos):
     #                           markerfacecolor = 'crimson', markersize = 10)]
     
     # plt.legend(handles = legend_elements)
-    # print(pca.explained_variance_ratio_)
+    
+     
+    legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
+                              label = 'Stable',
+                              markerfacecolor = 'blue', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Unstable',
+                              markerfacecolor = 'red', markersize = 10)]
+    
+    plt.legend(handles = legend_elements)
+    print(pca.explained_variance_ratio_)
     
     if choice == "1":
         clusterNum = input("How many clusters do you want? (no more than 5) \n")
@@ -83,7 +106,7 @@ def applyPCA (array, frameCount, test, videos):
     elif choice == "3":
         applyMeanShift(principalComponents, test)
     else:
-        plt.title("2 Component PCA on " + test + " Values (per pixel)")
+        plt.title("2 Component PCA on " + test + " Pixel Values")
         
     plt.show()
     return
