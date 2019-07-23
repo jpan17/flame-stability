@@ -37,7 +37,7 @@ def main():
         
     #     videoCount += 1
         
-    fileName = "flame-spray-6.avi"
+    fileName = "flame-spray-53.avi"
     fire = cv2.VideoCapture('./fireFiles/' + fileName)
         
     ret, frame = fire.read()
