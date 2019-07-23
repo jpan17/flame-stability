@@ -25,6 +25,9 @@ def centroid():
         frameWidth = width
         frameHeight = height
         
+        out = cv2.VideoWriter('centroid-' + df['File name'][i], cv2.VideoWriter_fourcc(*'XVID'),
+                              30, (frameWidth, frameHeight))
+        
         if (whiteFire.isOpened() == False):
             print("Error opening video file or stream")
             
@@ -81,7 +84,9 @@ def centroid():
                 cv2.circle(moreBlended, (bX, bY), 5, (255, 255, 255), -1)
                 # cv2.putText(moreBlended, "outer centroid", (bX + 15, bY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 
-                cv2.imshow("centroids",moreBlended)
+                cv2.imshow("centroids", moreBlended)
+                
+                out.write(moreBlended)
                 
                 if cv2.waitKey(25) == ord('q'):
                     break
@@ -89,7 +94,9 @@ def centroid():
             else:
                 break
             
-    fire.release()
+    redFire.release()
+    blueFire.release()
+    whiteFire.release()
     cv2.destroyAllWindows()
     
 if __name__ == "__main__":
