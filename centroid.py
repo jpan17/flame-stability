@@ -16,35 +16,63 @@ def centroid():
         videoCount += 1
         
         fileName = df['File name'][i]
-        fire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
+        redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
+        blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)
+        whiteFire = cv2.VideoCapture('./threshold100/threshold100-' + fileName)
         
-        ret, frame = fire.read()
+        ret, frame = blueFire.read()
         height, width, channels = frame.shape
         frameWidth = width
         frameHeight = height
         
-        if (fire.isOpened() == False):
+        if (whiteFire.isOpened() == False):
             print("Error opening video file or stream")
             
-        while (fire.isOpened()):
+        while (whiteFire.isOpened()):
             
-            ret, frame = fire.read()
+            bRet, bFrame = blueFire.read()
+            rRet, rFrame = redFire.read()
+            wRet, wFrame = whiteFire.read()
             
             if ret == True:
                 
                 frameCount += 1
                 
-                img = frame
-                cropped_img = img[:, 0:500]
-                gray_img = cv2.cvtColor(cropped_img, cv2.COLOR_BGR2GRAY)
-                moment = cv2.moments(gray_img)
-                X = int(moment["m10"]/moment["m00"])
-                Y = int(moment["m01"]/moment["m00"])
+                blended = cv2.addWeighted(bFrame, 0.5, rFrame, 0.5, 0)
+                moreBlended = cv2.addWeighted(blended, 0.7, wFrame, 0.3, 0)
+                
+                # blue white red
+                bImg = bFrame
+                bImg = bImg[:, 0:500]
+                b_gray_img = cv2.cvtColor(bImg, cv2.COLOR_BGR2GRAY)
+                moment = cv2.moments(b_gray_img)
+                bX = int(moment["m10"]/moment["m00"])
+                bY = int(moment["m01"]/moment["m00"])
+                
+                rImg = rFrame
+                rImg = rImg[:, 0:500]
+                r_gray_img = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
+                moment = cv2.moments(r_gray_img)
+                rX = int(moment["m10"]/moment["m00"])
+                rY = int(moment["m01"]/moment["m00"])
+                
+                wImg = wFrame
+                wImg = wImg[:, 0:500]
+                w_gray_img = cv2.cvtColor(wImg, cv2.COLOR_BGR2GRAY)
+                moment = cv2.moments(w_gray_img)
+                wX = int(moment["m10"]/moment["m00"])
+                wY = int(moment["m01"]/moment["m00"])
   
-                cv2.circle(img, (X, Y), 5, (255, 255, 255), -1)
-                cv2.putText(img, "centroid", (X + 15, Y + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)      
-                    
-                cv2.imshow("Center of the Image", img)
+                cv2.circle(moreBlended, (wX, wY), 5, (255, 255, 255), -1)
+                # cv2.putText(moreBlended, "core centroid", (wX + 15, wY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                
+                cv2.circle(moreBlended, (rX, rY), 5, (255, 255, 255), -1)
+                # cv2.putText(moreBlended, "inner centroid", (rX + 15, rY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                
+                cv2.circle(moreBlended, (bX, bY), 5, (255, 255, 255), -1)
+                # cv2.putText(moreBlended, "outer centroid", (bX + 15, bY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                
+                cv2.imshow("centroids",moreBlended)
                 
                 if cv2.waitKey(25) == ord('q'):
                     break
