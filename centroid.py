@@ -28,13 +28,13 @@ def centroid():
         if (whiteFire.isOpened() == False):
             print("Error opening video file or stream")
             
-        while (whiteFire.isOpened()):
+        while (whiteFire.isOpened() and blueFire.isOpened() and redFire.isOpened()):
             
             bRet, bFrame = blueFire.read()
             rRet, rFrame = redFire.read()
             wRet, wFrame = whiteFire.read()
             
-            if ret == True:
+            if bRet == True:
                 
                 frameCount += 1
                 
@@ -43,26 +43,35 @@ def centroid():
                 
                 # blue white red
                 bImg = bFrame
-                bImg = bImg[:, 0:500]
+                bImg = bImg[:, 0:480]
                 b_gray_img = cv2.cvtColor(bImg, cv2.COLOR_BGR2GRAY)
                 moment = cv2.moments(b_gray_img)
-                bX = int(moment["m10"]/moment["m00"])
-                bY = int(moment["m01"]/moment["m00"])
-                
+                if moment['m00'] != 0: 
+                    bX = int(moment["m10"]/moment["m00"])
+                    bY = int(moment["m01"]/moment["m00"])
+                else:
+                    bX, bY = 0, 0
+                    
                 rImg = rFrame
-                rImg = rImg[:, 0:500]
+                rImg = rImg[:, 0:480]
                 r_gray_img = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
                 moment = cv2.moments(r_gray_img)
-                rX = int(moment["m10"]/moment["m00"])
-                rY = int(moment["m01"]/moment["m00"])
-                
+                if moment['m00'] != 0: 
+                    rX = int(moment["m10"]/moment["m00"])
+                    rY = int(moment["m01"]/moment["m00"])
+                else:
+                    rX, rY = 0, 0
+                    
                 wImg = wFrame
-                wImg = wImg[:, 0:500]
+                wImg = wImg[:, 0:480]
                 w_gray_img = cv2.cvtColor(wImg, cv2.COLOR_BGR2GRAY)
                 moment = cv2.moments(w_gray_img)
-                wX = int(moment["m10"]/moment["m00"])
-                wY = int(moment["m01"]/moment["m00"])
-  
+                if moment['m00'] != 0: 
+                    wX = int(moment["m10"]/moment["m00"])
+                    wY = int(moment["m01"]/moment["m00"])
+                else:
+                    wX, wY = 0, 0
+                    
                 cv2.circle(moreBlended, (wX, wY), 5, (255, 255, 255), -1)
                 # cv2.putText(moreBlended, "core centroid", (wX + 15, wY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 
