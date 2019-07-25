@@ -28,7 +28,7 @@ def main():
         numFrames = 0
         
         # read in video
-        fire = cv2.VideoCapture('./moreTogether/moreTogether-' + df['File name'][i])
+        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
         print(df['File name'][i])
         
         # print error message if you can't read it in
@@ -41,7 +41,7 @@ def main():
         vidHeight = height
         vidWidth = width 
         test = ''
-        stability.append(int(df['Stability10'][i]))
+        stability.append(int(df['flameStability'][i]))
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened()):
@@ -68,7 +68,7 @@ def main():
     print(frameCount)
     print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, 'Quantized', videos,
+    twoComponentPCA.applyPCA(features, frameCount, 'entireFlame', videos,
                              stability)
         
     fire.release()

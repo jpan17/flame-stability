@@ -11,8 +11,8 @@ def lumArray (image, height, width):
     frameL, frameA, frameB = cv2.split(frame)
     
     # iterate through all pixels and add to array
-    for row in range(220, 270):
-        for col in range(450, 480):
+    for row in range(0, 480):
+        for col in range(0, 480):
             luminances.append(frameL[row][col])
     
     return luminances

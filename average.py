@@ -14,7 +14,7 @@ def averageLine(image):
     l, a, b = cv2.split(frame)
     
     for row in range(0, 480):
-        for col in range(0, 480):
+        for col in range(0, 500):
             total += l[row][col]
             count += 1
             
