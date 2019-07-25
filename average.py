@@ -13,8 +13,8 @@ def averageLine(image):
     frame = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(frame)
     
-    for row in range(0, 480):
-        for col in range(0, 500):
+    for row in range(230, 270):
+        for col in range(470, 471):
             total += l[row][col]
             count += 1
             
@@ -54,6 +54,7 @@ def main():
             frameCount += 1
                 
             cv2.imshow('default', frame)
+            print(type(averageLine(frame)))
             averages.append(averageLine(frame))
             frames.append(frameCount)
                 
@@ -62,7 +63,7 @@ def main():
                 
         else:
             break
-        
+
     totalAverage = sum(averages) / len(averages)
     averages -= totalAverage
     first = totalAverage * 0.10
