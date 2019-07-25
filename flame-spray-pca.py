@@ -52,8 +52,9 @@ def main():
             if ret == True:
                 cv2.imshow('Fire', frame)
                 
+                temp.append(luminance.lumArray(frame, vidHeight, vidWidth))
+                
                 if frameCount % 10 == 0: 
-                    temp.append(luminance.lumArray(frame, vidHeight, vidWidth))
                     features.append(temp)
                     numFrames += 1
                     temp = []
@@ -65,6 +66,7 @@ def main():
                 
             else:
                 videos.append(numFrames)
+                temp = []
                 break
             
     features = standardize(features)
