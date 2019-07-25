@@ -5,9 +5,13 @@ import pandas
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import math
+from sklearn.preprocessing import StandardScaler
+import flameTest.twoComponentPCA as twoComponentPCA
 # =========================================================================== #
 
-
+def standardize(array):
+    standardized = StandardScaler().fit_transform(array)
+    return standardized
 
 def centroid():
 
