@@ -28,7 +28,7 @@ def centroid():
     # for i in range(0, len(df['File name'])):
         
     videoCount += 1
-    fileName = "flame-spray-2.avi"
+    fileName = "flame-spray-1.avi"
     # fileName = df['File name'][i]
     redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
     blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)
@@ -143,6 +143,18 @@ def centroid():
     [i**2 for i in bXCentroids]
     [i**2 for i in bYCentroids]
     bCentroids = [sum(i) for i in zip(bXCentroids, bYCentroids)]
+    
+    legend_elements = [Line2D([0],[0], marker = 'o', color = 'gold', 
+                              label = 'Core',
+                              markerfacecolor = 'gold', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'crimson',
+                              label = 'Inner',
+                              markerfacecolor = 'crimson', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'blue',
+                              label = 'Outer',
+                              markerfacecolor = 'blue', markersize = 10)]
+    
+    plt.legend(handles = legend_elements)
     
     plt.plot(frames, [i**0.5 for i in wCentroids], c = "gold")
     plt.plot(frames, [i**0.5 for i in rCentroids], c = "crimson")
