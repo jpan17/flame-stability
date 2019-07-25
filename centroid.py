@@ -28,7 +28,7 @@ def centroid():
     # for i in range(0, len(df['File name'])):
         
     videoCount += 1
-    fileName = "flame-spray-1.avi"
+    fileName = "flame-spray-2.avi"
     # fileName = df['File name'][i]
     redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
     blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)
@@ -136,10 +136,20 @@ def centroid():
     [i**2 for i in wYCentroids]
     wCentroids = [sum(i) for i in zip(wXCentroids, wYCentroids)]
     
+    [i**2 for i in rXCentroids]
+    [i**2 for i in rYCentroids]
+    rCentroids = [sum(i) for i in zip(rXCentroids, rYCentroids)]
+    
+    [i**2 for i in bXCentroids]
+    [i**2 for i in bYCentroids]
+    bCentroids = [sum(i) for i in zip(bXCentroids, bYCentroids)]
+    
     plt.plot(frames, [i**0.5 for i in wCentroids], c = "gold")
+    plt.plot(frames, [i**0.5 for i in rCentroids], c = "crimson")
+    plt.plot(frames, [i**0.5 for i in bCentroids], c = "blue")
     plt.xlabel('Time (frames)')
     plt.ylabel('Centroid Position Absolute Difference (from average)')
-    plt.title('Centroid Position Fluctuation from Average vs Time of ')
+    plt.title('Centroid Position Fluctuation from Average vs Time of ' + fileName)
     plt.show()
     
     redFire.release()
