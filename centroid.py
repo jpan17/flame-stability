@@ -4,6 +4,7 @@ import numpy as np
 import pandas
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import math
 # =========================================================================== #
 
 
@@ -15,12 +16,12 @@ def centroid():
     frameCount = 0
     videoCount = 0
     
-    wXCentroids = []
-    rXCentroids = []
-    bXCentroids = []
-    wYCentroids = []
-    rYCentroids = []
-    bYCentroids = []
+    wXCentroids = np.array([])
+    rXCentroids = np.array([])
+    bXCentroids = np.array([])
+    wYCentroids = np.array([])
+    rYCentroids = np.array([])
+    bYCentroids = np.array([])
     
     frames = []
     
@@ -97,12 +98,12 @@ def centroid():
             cv2.circle(moreBlended, (bX, bY), 5, (255, 255, 255), -1)
                 # cv2.putText(moreBlended, "outer centroid", (bX + 15, bY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 
-            wXCentroids.append(wX)
-            wYCentroids.append(wY)
-            rXCentroids.append(rX)
-            rYCentroids.append(rY)
-            bXCentroids.append(bX)
-            bYCentroids.append(bY)
+            np.append(wXCentroids, wX)
+            np.append(wYCentroids, wY)
+            np.append(rXCentroids, rX)
+            np.append(rYCentroids, rY)
+            np.append(bXCentroids, bX)
+            np.append(bYCentroids, bY)
                 
             frames.append(frameCount)
                 
@@ -117,13 +118,12 @@ def centroid():
         else:
             break
             
-
-    wXAverage = sum(wXCentroids) / len(wXCentroids)
-    wYAverage = sum(wYCentroids) / len(wYCentroids)
-    rXAverage = sum(rXCentroids) / len(rXCentroids)
-    rYAverage = sum(rYCentroids) / len(rYCentroids)
-    bXAverage = sum(bXCentroids) / len(bXCentroids)
-    bYAverage = sum(bYCentroids) / len(bYCentroids)
+    wXAverage = sum(wXCentroids) / wXCentroids.size
+    wYAverage = sum(wYCentroids) / wYCentroids.size
+    rXAverage = sum(rXCentroids) / rXCentroids.size
+    rYAverage = sum(rYCentroids) / rYCentroids.size
+    bXAverage = sum(bXCentroids) / bXCentroids.size
+    bYAverage = sum(bYCentroids) / bYCentroids.size
     
     wXCentroids -= wXAverage
     wYCentroids -= wYAverage
