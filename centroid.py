@@ -126,13 +126,17 @@ def centroid():
     bYAverage = sum(bYCentroids) / len(bYCentroids)
     
     wXCentroids[:] = [x - wXAverage for x in wXCentroids]
-    wYCentroids -= wYAverage
-    rXCentroids -= rXAverage
-    rYCentroids -= rYAverage
-    bXCentroids -= bXAverage
-    bYCentroids -= bYAverage
+    wYCentroids[:] = [x - wYAverage for x in wYCentroids]
+    rXCentroids[:] = [x - rXAverage for x in rXCentroids]
+    rYCentroids[:] = [x - rYAverage for x in rYCentroids]
+    bXCentroids[:] = [x - bXAverage for x in bXCentroids]
+    bYCentroids[:] = [x - bYAverage for x in bYCentroids]
     
-    plt.plot(frames, math.sqrt(np.square(wXCentroids) + np.square(wYCentroids)), c = "gold")
+    [i**2 for i in wXCentroids]
+    [i**2 for i in wYCentroids]
+    wCentroids = [sum(i) for i in zip(wXCentroids, wYCentroids)]
+    
+    plt.plot(frames, [i**0.5 for i in wCentroids], c = "gold")
     plt.xlabel('Time (frames)')
     plt.ylabel('Centroid Position Absolute Difference (from average)')
     plt.title('Centroid Position Fluctuation from Average vs Time of ')
