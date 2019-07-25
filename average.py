@@ -54,6 +54,7 @@ def main():
             frameCount += 1
                 
             cv2.imshow('default', frame)
+            print(type(averageLine(frame)))
             averages.append(averageLine(frame))
             frames.append(frameCount)
                 
@@ -62,7 +63,7 @@ def main():
                 
         else:
             break
-    print(averages)
+
     totalAverage = sum(averages) / len(averages)
     averages -= totalAverage
     first = totalAverage * 0.10

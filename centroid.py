@@ -16,12 +16,12 @@ def centroid():
     frameCount = 0
     videoCount = 0
     
-    wXCentroids = np.array([])
-    rXCentroids = np.array([])
-    bXCentroids = np.array([])
-    wYCentroids = np.array([])
-    rYCentroids = np.array([])
-    bYCentroids = np.array([])
+    wXCentroids = []
+    rXCentroids = []
+    bXCentroids = []
+    wYCentroids = []
+    rYCentroids = []
+    bYCentroids = []
     
     frames = []
     
@@ -64,8 +64,8 @@ def centroid():
             b_gray_img = cv2.cvtColor(bImg, cv2.COLOR_BGR2GRAY)
             moment = cv2.moments(b_gray_img)
             if moment['m00'] != 0: 
-                bX = int(moment["m10"]/moment["m00"])
-                bY = int(moment["m01"]/moment["m00"])
+                bX = moment["m10"]/moment["m00"]
+                bY = moment["m01"]/moment["m00"]
             else:
                 bX, bY = 0, 0
                     
@@ -74,8 +74,8 @@ def centroid():
             r_gray_img = cv2.cvtColor(rImg, cv2.COLOR_BGR2GRAY)
             moment = cv2.moments(r_gray_img)
             if moment['m00'] != 0: 
-                rX = int(moment["m10"]/moment["m00"])
-                rY = int(moment["m01"]/moment["m00"])
+                rX = moment["m10"]/moment["m00"]
+                rY = moment["m01"]/moment["m00"]
             else:
                 rX, rY = 0, 0
                     
@@ -84,26 +84,26 @@ def centroid():
             w_gray_img = cv2.cvtColor(wImg, cv2.COLOR_BGR2GRAY)
             moment = cv2.moments(w_gray_img)
             if moment['m00'] != 0: 
-                wX = int(moment["m10"]/moment["m00"])
-                wY = int(moment["m01"]/moment["m00"])
+                wX = moment["m10"]/moment["m00"]
+                wY = moment["m01"]/moment["m00"]
             else:
                 wX, wY = 0, 0
                     
-            cv2.circle(moreBlended, (wX, wY), 5, (255, 255, 255), -1)
+            cv2.circle(moreBlended, (int(wX), int(wY)), 5, (255, 255, 255), -1)
                 # cv2.putText(moreBlended, "core centroid", (wX + 15, wY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 
-            cv2.circle(moreBlended, (rX, rY), 5, (255, 255, 255), -1)
+            cv2.circle(moreBlended, (int(rX), int(rY)), 5, (255, 255, 255), -1)
                 # cv2.putText(moreBlended, "inner centroid", (rX + 15, rY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 
-            cv2.circle(moreBlended, (bX, bY), 5, (255, 255, 255), -1)
+            cv2.circle(moreBlended, (int(bX), int(bY)), 5, (255, 255, 255), -1)
                 # cv2.putText(moreBlended, "outer centroid", (bX + 15, bY + 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 
-            np.append(wXCentroids, wX)
-            np.append(wYCentroids, wY)
-            np.append(rXCentroids, rX)
-            np.append(rYCentroids, rY)
-            np.append(bXCentroids, bX)
-            np.append(bYCentroids, bY)
+            wXCentroids.append(wX)
+            wYCentroids.append(wY)
+            rXCentroids.append(rX)
+            rYCentroids.append(rY)
+            bXCentroids.append(bX)
+            bYCentroids.append(bY)
                 
             frames.append(frameCount)
                 
@@ -117,15 +117,15 @@ def centroid():
                 
         else:
             break
-            
-    wXAverage = sum(wXCentroids) / wXCentroids.size
-    wYAverage = sum(wYCentroids) / wYCentroids.size
-    rXAverage = sum(rXCentroids) / rXCentroids.size
-    rYAverage = sum(rYCentroids) / rYCentroids.size
-    bXAverage = sum(bXCentroids) / bXCentroids.size
-    bYAverage = sum(bYCentroids) / bYCentroids.size
     
-    wXCentroids -= wXAverage
+    wXAverage = sum(wXCentroids) / len(wXCentroids)
+    wYAverage = sum(wYCentroids) / len(wYCentroids)
+    rXAverage = sum(rXCentroids) / len(rXCentroids)
+    rYAverage = sum(rYCentroids) / len(rYCentroids)
+    bXAverage = sum(bXCentroids) / len(bXCentroids)
+    bYAverage = sum(bYCentroids) / len(bYCentroids)
+    
+    wXCentroids[:] = [x - wXAverage for x in wXCentroids]
     wYCentroids -= wYAverage
     rXCentroids -= rXAverage
     rYCentroids -= rYAverage
