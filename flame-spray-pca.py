@@ -73,7 +73,7 @@ def main():
     print(frameCount)
     print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, 'entireFlame', videos,
+    twoComponentPCA.applyPCA(features, frameCount, 'cropped (box)', videos,
                              stability)
         
     fire.release()
