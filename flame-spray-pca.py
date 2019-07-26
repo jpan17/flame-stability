@@ -22,6 +22,7 @@ def main():
     frameCount = 0    
     videos = []
     stability = []
+    temp = []
     
     for i in range(0, len(df['File name']) - 1):
         
@@ -41,7 +42,7 @@ def main():
         vidHeight = height
         vidWidth = width 
         test = ''
-        stability.append(int(df['flameStability'][i]))
+        stability.append(int(df['boxStability'][i]))
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened()):
@@ -51,10 +52,13 @@ def main():
             if ret == True:
                 cv2.imshow('Fire', frame)
                 
-                if frameCount % 15 == 0: 
-                    temp = luminance.lumArray(frame, vidHeight, vidWidth)
+                temp.append(luminance.lumArray(frame, vidHeight, vidWidth))
+                
+                if frameCount % 10 == 0: 
                     features.append(temp)
                     numFrames += 1
+                    temp = []
+                    
                 
                 # terminates the video before it finishes
                 if cv2.waitKey(25) == ord('q'):
@@ -62,13 +66,14 @@ def main():
                 
             else:
                 videos.append(numFrames)
+                temp = []
                 break
             
     features = standardize(features)
     print(frameCount)
     print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, 'entireFlame', videos,
+    twoComponentPCA.applyPCA(features, frameCount, 'cropped (box)', videos,
                              stability)
         
     fire.release()

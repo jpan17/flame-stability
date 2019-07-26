@@ -5,9 +5,13 @@ import pandas
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import math
+from sklearn.preprocessing import StandardScaler
+import flameTest.twoComponentPCA as twoComponentPCA
 # =========================================================================== #
 
-
+def standardize(array):
+    standardized = StandardScaler().fit_transform(array)
+    return standardized
 
 def centroid():
 
@@ -28,7 +32,7 @@ def centroid():
     # for i in range(0, len(df['File name'])):
         
     videoCount += 1
-    fileName = "flame-spray-1.avi"
+    fileName = "flame-spray-53.avi"
     # fileName = df['File name'][i]
     redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
     blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)
