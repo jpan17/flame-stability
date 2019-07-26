@@ -82,7 +82,6 @@ def main():
             break
     
     features = standardize(features) 
-    
     choice2 = input("What would you like to do with the data? 1) Apply " +
                     "2-component PCA 2) Apply 3-component PCA 3) Examine " +
                     "explained variance vs number of components or 4) " +
