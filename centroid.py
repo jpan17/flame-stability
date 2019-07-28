@@ -39,7 +39,7 @@ def centroid():
         videoCount += 1
         fileName = df['File name'][i]
         print(fileName)
-        stability.append(df['Stability15'][i])
+        stability.append(df['flameStability'][i])
         # fileName = df['File name'][i]
         redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
         blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)

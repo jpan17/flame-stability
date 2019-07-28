@@ -106,7 +106,8 @@ def applyPCA (array, frameCount, test, videos, stability):
     elif choice == "3":
         applyMeanShift(principalComponents, test)
     else:
-        plt.title("2 Component PCA on " + test + " Pixel Values")
+        # plt.title("2 Component PCA on " + test + " Pixel Values")
+        plt.title("2 component PCA (entire flame stability) on Video Centroid Values")
         
     plt.show()
     return
