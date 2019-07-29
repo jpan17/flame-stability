@@ -39,7 +39,7 @@ def centroid():
         videoCount += 1
         fileName = df['File name'][i]
         print(fileName)
-        stability.append(df['flameStability'][i])
+        stability.append(df['Stability10'][i])
         # fileName = df['File name'][i]
         redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
         blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)
@@ -124,12 +124,12 @@ def centroid():
                 bXCentroids.append(bX)
                 bYCentroids.append(bY)
                 
-                videoCentroids.append(wX)
-                videoCentroids.append(wY)
+                # videoCentroids.append(wX)
+                # videoCentroids.append(wY)
                 videoCentroids.append(rX)
                 videoCentroids.append(rY)
-                videoCentroids.append(bX)
-                videoCentroids.append(bY)
+                # videoCentroids.append(bX)
+                # videoCentroids.append(bY)
                     
                 frames.append(frameCount)
                     
