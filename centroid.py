@@ -36,10 +36,10 @@ def centroid():
     
     allWX = []
     allWY = []
-    # allRX = []
-    # allRY = []
-    # allBX = []
-    # allBY = []
+    allRX = []
+    allRY = []
+    allBX = []
+    allBY = []
     
     everything = []
     
@@ -50,7 +50,7 @@ def centroid():
         videoCount += 1
         fileName = df['File name'][i]
         print(fileName)
-        stability.append(df['Stability10'][i])
+        stability.append(df['jessStability'][i])
         # fileName = df['File name'][i]
         redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
         blueFire = cv2.VideoCapture('./threshold20/threshold20-' + fileName)
@@ -67,16 +67,15 @@ def centroid():
             # features.append(videoCentroids)
             everything.append(mean(allWX))
             everything.append(mean(allWY))
-            # everything.append(mean(allRX))
-            # everything.append(mean(allRY))
-            # everything.append(mean(allBX))
-            # everything.append(mean(allBY))
+            everything.append(mean(allRX))
+            everything.append(mean(allRY))
+            everything.append(mean(allBX))
+            everything.append(mean(allBY))
             everything.append(stdev(allWX))
             everything.append(stdev(allWY))
-            # everything.append(stdev(allRX))
-            # everything.append(stdev(allRY))
-            # everything.append(stdev(allBX))
-            # everything.append(stdev(allBY))
+            everything.append(stdev(allRX))
+            everything.append(stdev(allBX))
+            everything.append(stdev(allBY))
             
             features.append(everything)
             # videoCentroids = []
@@ -84,10 +83,10 @@ def centroid():
             everything = []
             allWX = []
             allWY = []
-            # allRX = []
-            # allRY = []
-            # allBX = []
-            # allBY = []
+            allRX = []
+            allRY = []
+            allBX = []
+            allBY = []
             
             
             videos.append(1)
@@ -168,10 +167,10 @@ def centroid():
                 
                 allWX.append(wX)
                 allWY.append(wY)
-                # allRX.append(rX)
-                # allRY.append(rY)
-                # allBX.append(bX)
-                # allBY.append(bY)
+                allRX.append(rX)
+                allRY.append(rY)
+                allBX.append(bX)
+                allBY.append(bY)
                                         
                 frames.append(frameCount)
                     
