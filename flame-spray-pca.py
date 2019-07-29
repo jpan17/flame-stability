@@ -32,6 +32,12 @@ def main():
         fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
         print(df['File name'][i])
         
+        if i > 0: 
+            print(len(temp))
+            features.append(temp)
+            temp = []
+            videos.append(1)
+        
         # print error message if you can't read it in
         if (fire.isOpened() == False):
             print("Error opening video file or stream")
@@ -45,19 +51,19 @@ def main():
         stability.append(int(df['boxStability'][i]))
         
         # display the video until 'q' is pressed or until it terminates
-        while (fire.isOpened()):
+        while (fire.isOpened() and numFrames < 250):
             ret, frame = fire.read()
             frameCount += 1
             
             if ret == True:
                 cv2.imshow('Fire', frame)
+                numFrames += 1
+                temp += luminance.lumArray(frame, vidHeight, vidWidth)
                 
-                temp.append(luminance.lumArray(frame, vidHeight, vidWidth))
-                
-                if frameCount % 10 == 0: 
-                    features.append(temp)
-                    numFrames += 1
-                    temp = []
+                # if frameCount % 10 == 0: 
+                #     features.append(temp)
+                #     numFrames += 1
+                #     temp = []
                     
                 
                 # terminates the video before it finishes
@@ -65,15 +71,15 @@ def main():
                     break
                 
             else:
-                videos.append(numFrames)
-                temp = []
+                # videos.append(numFrames)
+                # temp = []
                 break
             
     features = standardize(features)
     print(frameCount)
     print(features.shape)
     
-    twoComponentPCA.applyPCA(features, frameCount, 'cropped (box)', videos,
+    twoComponentPCA.applyPCA(features, frameCount, '', videos,
                              stability)
         
     fire.release()
