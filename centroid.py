@@ -7,7 +7,8 @@ from matplotlib.lines import Line2D
 import math
 from sklearn.preprocessing import StandardScaler
 import flameTest.twoComponentPCA as twoComponentPCA
-import statistics
+from statistics import mean
+from statistics import stdev
 # =========================================================================== #
 
 def standardize(array):
@@ -35,10 +36,12 @@ def centroid():
     
     allWX = []
     allWY = []
-    allRX = []
-    allRY = []
-    allBX = []
-    allBY = []
+    # allRX = []
+    # allRY = []
+    # allBX = []
+    # allBY = []
+    
+    everything = []
     
     frames = []
     
@@ -62,19 +65,30 @@ def centroid():
         if i > 0:
             # print(len(videoCentroids))
             # features.append(videoCentroids)
-            features.append(mean(allWX))
-            features.append(mean(allWY))
-            features.append(mean(allRX))
-            features.append(mean(allRY))
-            features.append(mean(allBX))
-            features.append(mean(allBY))
-            features.append(stdev(allWX))
-            features.append(stdev(allWY))
-            features.append(stdev(allRX))
-            features.append(stdev(allRY))
-            features.append(stdev(allBX))
-            features.append(stdev(allBY))
+            everything.append(mean(allWX))
+            everything.append(mean(allWY))
+            # everything.append(mean(allRX))
+            # everything.append(mean(allRY))
+            # everything.append(mean(allBX))
+            # everything.append(mean(allBY))
+            everything.append(stdev(allWX))
+            everything.append(stdev(allWY))
+            # everything.append(stdev(allRX))
+            # everything.append(stdev(allRY))
+            # everything.append(stdev(allBX))
+            # everything.append(stdev(allBY))
+            
+            features.append(everything)
             # videoCentroids = []
+            
+            everything = []
+            allWX = []
+            allWY = []
+            # allRX = []
+            # allRY = []
+            # allBX = []
+            # allBY = []
+            
             
             videos.append(1)
             # out = cv2.VideoWriter('centroid-' + df['File name'][i], cv2.VideoWriter_fourcc(*'XVID'),
@@ -154,10 +168,10 @@ def centroid():
                 
                 allWX.append(wX)
                 allWY.append(wY)
-                allRX.append(rX)
-                allRY.append(rY)
-                allBX.append(bX)
-                allBY.append(bY)
+                # allRX.append(rX)
+                # allRY.append(rY)
+                # allBX.append(bX)
+                # allBY.append(bY)
                                         
                 frames.append(frameCount)
                     
@@ -218,8 +232,8 @@ def centroid():
     # plt.title('Centroid Position Fluctuation from Average vs Time of ' + fileName)
     # plt.show()
     
-    print(len(features))
-    print(len(features[0]))
+    # print(len(features))
+    # print(len(features[0]))
     features = standardize(features)
     twoComponentPCA.applyPCA(features, frameCount, '', videos, stability)
     
