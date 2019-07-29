@@ -7,6 +7,7 @@ from matplotlib.lines import Line2D
 import math
 from sklearn.preprocessing import StandardScaler
 import flameTest.twoComponentPCA as twoComponentPCA
+import statistics
 # =========================================================================== #
 
 def standardize(array):
@@ -32,6 +33,13 @@ def centroid():
     stability = []
     videos = []
     
+    allWX = []
+    allWY = []
+    allRX = []
+    allRY = []
+    allBX = []
+    allBY = []
+    
     frames = []
     
     for i in range(0, len(df['File name'])):
@@ -52,9 +60,22 @@ def centroid():
         numFrames = 0
             
         if i > 0:
-            print(len(videoCentroids))
-            features.append(videoCentroids)
-            videoCentroids = []
+            # print(len(videoCentroids))
+            # features.append(videoCentroids)
+            features.append(mean(allWX))
+            features.append(mean(allWY))
+            features.append(mean(allRX))
+            features.append(mean(allRY))
+            features.append(mean(allBX))
+            features.append(mean(allBY))
+            features.append(stdev(allWX))
+            features.append(stdev(allWY))
+            features.append(stdev(allRX))
+            features.append(stdev(allRY))
+            features.append(stdev(allBX))
+            features.append(stdev(allBY))
+            # videoCentroids = []
+            
             videos.append(1)
             # out = cv2.VideoWriter('centroid-' + df['File name'][i], cv2.VideoWriter_fourcc(*'XVID'),
             #                       30, (frameWidth, frameHeight))
@@ -124,13 +145,20 @@ def centroid():
                 bXCentroids.append(bX)
                 bYCentroids.append(bY)
                 
-                # videoCentroids.append(wX)
-                # videoCentroids.append(wY)
+                videoCentroids.append(wX)
+                videoCentroids.append(wY)
                 videoCentroids.append(rX)
                 videoCentroids.append(rY)
-                # videoCentroids.append(bX)
-                # videoCentroids.append(bY)
-                    
+                videoCentroids.append(bX)
+                videoCentroids.append(bY)
+                
+                allWX.append(wX)
+                allWY.append(wY)
+                allRX.append(rX)
+                allRY.append(rY)
+                allBX.append(bX)
+                allBY.append(bY)
+                                        
                 frames.append(frameCount)
                     
                 cv2.imshow("centroids", moreBlended)

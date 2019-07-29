@@ -107,11 +107,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-<<<<<<< HEAD
-        plt.title("2 component PCA (stability15) on Core Centroid Values")
-=======
-        plt.title("2 component PCA (box stability) on Video Centroid Values")
->>>>>>> box-frame-tracking
+        plt.title("2 component PCA (box stability) on Centroid Mean/Stdev Values")
         
     plt.show()
     return
