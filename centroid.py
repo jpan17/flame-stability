@@ -34,6 +34,7 @@ def centroid():
     stability = []
     videos = []
     
+    
     allWX = []
     allWY = []
     allRX = []
