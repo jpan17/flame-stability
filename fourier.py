@@ -152,8 +152,22 @@ def fourier():
     plt.title('Centroid Position Fluctuation from Average vs Time of ' + fileName)
     plt.show()
     
-    plt.figure(2)
-    plt.plot(frames, fft(wCentroids))
+    plt.figure(2) 
+    fourier = fft(wCentroids)
+    # number of sample points
+    N = len(wCentroids)
+    # sample spacing
+    T = 1 / N
+    
+    x = np.linspace(0.0, N*T, N)
+    xf = np.linspace(0.0, 1.0 / (2.0 * T), N//2)
+    
+    # 1/T = frequency
+    f = np.linspace(0, 1/30, N)
+
+    plt.ylabel("Amplitude")
+    plt.xlabel("Frequency")
+    plt.plot(xf, 2.0 / N * np.abs(fourier[0:N//2]))  # 1 / N is a normalization factor
     plt.show()
     
     redFire.release()
