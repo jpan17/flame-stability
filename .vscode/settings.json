@@ -1,4 +1,8 @@
 {
     "python.pythonPath": "C:\\Users\\Jessica\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
-    "python.linting.pylintArgs": ["--extension-pkg-whitelist=cv2", "--errors-only"]
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=cv2",
+        "--errors-only"
+    ],
+    "workbench.colorCustomizations": {}
 }
