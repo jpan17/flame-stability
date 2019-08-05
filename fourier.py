@@ -25,6 +25,7 @@ def fourier():
     bYCentroids = []
     
     frames = []
+    stabilities = []
     
     fouriers = []
     
@@ -33,6 +34,7 @@ def fourier():
         videoCount += 1
         
         fileName = df['File name'][i]
+        stabilities.append(df['Stability15'][i])
         print(fileName)
         
         redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
@@ -180,20 +182,34 @@ def fourier():
                 
                 f = np.linspace(0, N * T, N / 2) # time vector
 
-                result = np.where(fourier == np.amax(fourier))
-                frequency = f[result[0]]
+                result = np.argmax(fourier)
+                print("Result = ", str(result))
+                frequency = f[result]
+                print("Frequency = " + str(frequency))
                 fouriers.append(frequency)
                 videos.append(videoCount)
-                print(videoCount)
+                print("Video Count = " + str(videoCount))
                 
-                # plt.ylabel("Amplitude")
-                # plt.xlabel("Frequency (Hz)")
-                # plt.title("Fourier Transform for Core Centroid Mean Deviations")
-                # plt.plot(freq, np.abs(fourier))  
-                # plt.show()
+                wXCentroids = []
+                rXCentroids = []
+                bXCentroids = []
+                wYCentroids = []
+                rYCentroids = []
+                bYCentroids = []
+                
+                plt.ylabel("Amplitude")
+                plt.xlabel("Frequency (Hz)")
+                plt.title("Fourier Transform for Core Centroid Mean Deviations")
+                plt.plot(freq, np.abs(fourier))  
+                plt.show()
                 break
     
-    plt.plot(videos, fouriers)
+    print(fouriers)
+    for i in range(0, len(stabilities)):
+        if stabilities[i] == 1:
+            plt.scatter(videos[i], fouriers[i], c = 'blue')
+        else:
+            plt.scatter(videos[i], fouriers[i], c = 'red')
     plt.show()
     redFire.release()
     blueFire.release()

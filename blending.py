@@ -14,6 +14,7 @@ def main():
         
         videoCount += 1
         
+        # change
         background = 'together-' + df['File name'][i]
         foreground = 'threshold100-' + df['File name'][i]
         
