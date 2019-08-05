@@ -197,11 +197,11 @@ def fourier():
                 rYCentroids = []
                 bYCentroids = []
                 
-                # plt.ylabel("Amplitude")
-                # plt.xlabel("Frequency (Hz)")
-                # plt.title("Fourier Transform for Core Centroid Mean Deviations")
-                # plt.plot(freq, np.abs(fourier))  
-                # plt.show()
+                plt.ylabel("Amplitude")
+                plt.xlabel("Frequency (Hz)")
+                plt.title("Fourier Transform for Core Centroid Mean Deviations")
+                plt.plot(freq, np.abs(fourier))  
+                plt.show()
                 break
     
     print(fouriers)
