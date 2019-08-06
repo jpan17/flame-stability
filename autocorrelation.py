@@ -5,6 +5,8 @@ import flameTest.luminance as luminance
 import flameTest.twoComponentPCA as twoComponentPCA
 import statistics
 import matplotlib.pyplot as plt
+from pandas import Series
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 # =========================================================================== #
 
 def autocorrelation():
@@ -18,6 +20,7 @@ def autocorrelation():
     
     for i in range(0, len(df['File name'])):
         
+        fileName = df['File name'][i]
         fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
         print(df['File name'][i])
         
@@ -44,11 +47,20 @@ def autocorrelation():
                 if cv2.waitKey(25) == ord('q'):
                     break
                 
-            else:
+            else:       
+                plot_acf(series, lags = 50) 
+                plt.savefig('acf-' + fileName + '.png')
+                plt.close()
+                plot_pacf(series, lags = 50)
+                plt.savefig('pacf' + fileName + '.png')
+                # plt.show() 
+                # plt.show()
+                plt.close()
+                series = []
                 break
     
-    plt.plot(frames, series)
-    plt.show()
+    
+    
     fire.release()
     cv2.destroyAllWindows()
     
