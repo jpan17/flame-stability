@@ -32,10 +32,6 @@ def main():
     
     totalAverage = 0
     averages = []
-    
-    # for i in range(0, 1):
-        
-    #     videoCount += 1
         
     fileName = "flame-spray-53.avi"
     fire = cv2.VideoCapture('./fireFiles/' + fileName)
