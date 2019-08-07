@@ -13,6 +13,7 @@ def experts():
     jess = []
     dante = []
     means = []
+    stabilities = []
     
     videos = []
     
@@ -20,17 +21,22 @@ def experts():
         
         fileName = df['File name'][i]
         
-        currMean = (df['jess'][i] + df['debolina'][i] + df['joe'][i]) / 3
+        currMean = (df['jess'][i] + df['debolina'][i] + df['joe'][i] + df['dante'][i]) / 4
         means.append(currMean)    
         jess.append(df['jess'][i])
         debolina.append(df['debolina'][i])
         joe.append(df['joe'][i])
+        dante.append(df['dante'][i])
+        
+        stabilities.append(df[''][i])
         videos.append(int(fileName[12:14]))
 
-    plt.plot(videos, joe, c = 'blue')
-    plt.plot(videos, debolina, c = 'gold')
-    plt.plot(videos, jess, c = 'crimson')
-    plt.plot(videos, means, c = 'black', linewidth = 2)
+#     plt.plot(videos, joe, c = 'blue')
+#     plt.plot(videos, debolina, c = 'gold')
+#     plt.plot(videos, jess, c = 'crimson')
+#     plt.plot(videos, dante, c = 'green')
+    plt.plot(videos, stabilities, c = 'violet')
+    plt.plot(videos, means, c = 'black', linewidth = 3)
     print(means)
     plt.show()
     

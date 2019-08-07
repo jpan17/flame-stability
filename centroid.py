@@ -50,7 +50,7 @@ def centroid():
             
     videoCount += 1
     # fileName = df['File name'][i]
-    fileName =  'flame-spray-3.avi'
+    fileName =  'flame-spray-53.avi'
     print(fileName)
     # stability.append(df['boxStability'][i])
     # fileName = df['File name'][i]
@@ -234,12 +234,13 @@ def centroid():
     plt.plot(frames, bCentroids, c = "blue")
     plt.plot(frames, rCentroids, c = "crimson")
     plt.plot(frames, wCentroids, c = "gold")
-    plt.xlabel('Time (frames)')
-    plt.ylabel('Centroid Position Absolute Difference (from average)')
-    plt.title('Centroid Position Fluctuation from Average vs Time of ' + fileName)
+    plt.xlabel('Time (frames)', fontsize = 24)
+    plt.ylabel('Centroid Position Absolute Difference (from average)', fontsize = 24)
+    plt.title('Centroid Position Fluctuation from Average vs Time of ' + fileName, fontsize = 24)
     # print(abs(wCentroids))
     # print(mean(abs(wCentroids)))
-    plt.axhline(mean(wCentroids), c = 'black')
+    plt.axhline(20, c = 'black')
+    plt.axhline(50, c = 'black')
     plt.show()
     
     # print(len(features))

@@ -13,8 +13,8 @@ def averageLine(image):
     frame = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(frame)
     
-    for row in range(230, 270):
-        for col in range(470, 471):
+    for row in range(220, 270):
+        for col in range(430, 480):
             total += l[row][col]
             count += 1
             
@@ -50,7 +50,7 @@ def main():
             frameCount += 1
                 
             cv2.imshow('default', frame)
-            print(type(averageLine(frame)))
+            # print(type(averageLine(frame)))
             averages.append(averageLine(frame))
             frames.append(frameCount)
                 
@@ -62,8 +62,8 @@ def main():
 
     totalAverage = sum(averages) / len(averages)
     averages -= totalAverage
-    first = totalAverage * 0.10
-    second = totalAverage * 0.15
+    first = totalAverage * 0.15
+    second = totalAverage * 0.25
     
     plt.axhline(first, c = 'black')
     plt.axhline(-first, c = 'black')
@@ -71,7 +71,7 @@ def main():
     plt.axhline(second, c = 'black')
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'Thresholds (within 10%, 15% of the average)',
+                              label = 'Thresholds (within 15%, 25% of the average)',
                               markerfacecolor = 'black', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
                               label = 'Luminance difference from mean',
@@ -79,12 +79,12 @@ def main():
     
     plt.legend(handles = legend_elements)
     plt.plot(frames, averages, c = 'red')
-    plt.xlabel('Time (frames)')
-    plt.ylabel('Luminance difference from average')
-    plt.title('Luminance fluctuation vs time of ' + fileName)
+    plt.xlabel('Time (frames)', fontsize = 24)
+    plt.ylabel('Luminance difference from average', fontsize = 24)
+    plt.title('Luminance fluctuation vs time of ' + fileName, fontsize = 24)
     plt.show()
     
-    print(totalAverage)
+    # print(totalAverage)
     fire.release()
     cv2.destroyAllWindows()
     
