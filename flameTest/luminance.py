@@ -1,3 +1,5 @@
+# Pixel line dims: 470,471,230,270
+# Box dims: 480, 450, 270, 220
 
 import cv2
 
