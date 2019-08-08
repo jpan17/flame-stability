@@ -113,7 +113,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-        plt.title("2 component PCA on Bounding Box Pixel Luminosity", fontsize = 24)
+        plt.title("2 component PCA on Centroid Mean/Stddev Fluctuation", fontsize = 24)
         
     plt.show()
     return
@@ -148,8 +148,10 @@ def applyKmeans(array, clusterNumber, test):
             encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
                     alpha = 0.2)
     
-    plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
-              "kmeans = " + str(clusterNumber))
+    # plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
+    #           "kmeans = " + str(clusterNumber))
+    plt.title("2 component PCA on Centroid Mean/Stddev Fluctuation", fontsize = 24)
+    
     plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
                 color = 'black')
     return
