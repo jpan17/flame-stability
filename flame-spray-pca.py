@@ -34,11 +34,9 @@ def main():
         print(df['File name'][i])
         
         if i > 0: 
-            # print(len(temp))
             features.append(temp)
-            videos.append(1)
-            stability.append(tempStability)
             temp = []
+            videos.append(1)
         
         # print error message if you can't read it in
         if (fire.isOpened() == False):
@@ -51,6 +49,7 @@ def main():
         vidWidth = width 
         test = ''
         tempStability = int(df['box'][i])
+        stability.append(tempStability)
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened() and numFrames < 250):
@@ -61,7 +60,7 @@ def main():
                 
                 frameCount += 1
                 temp += luminance.lumArray(frame, vidHeight, vidWidth)
-                
+                numFrames += 1
                 # if frameCount % 10 == 0: 
                 #     numFrames += 1
                 #     features.append(temp)
@@ -77,11 +76,11 @@ def main():
                 # videos.append(numFrames)
                 # temp = []
                 break
-    print(features)
+    # print(features)
     features = standardize(features)
-    print(frameCount)
+    # print(frameCount)
     print(features.shape)
-    
+    print(len(videos))
     twoComponentPCA.applyPCA(features, frameCount, '', videos,
                              stability)
         
