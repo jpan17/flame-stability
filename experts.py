@@ -28,15 +28,15 @@ def experts():
         joe.append(df['joe'][i])
         dante.append(df['dante'][i])
         
-        stabilities.append(df[''][i])
+        stabilities.append(df['box'][i])
         videos.append(int(fileName[12:14]))
 
 #     plt.plot(videos, joe, c = 'blue')
 #     plt.plot(videos, debolina, c = 'gold')
 #     plt.plot(videos, jess, c = 'crimson')
 #     plt.plot(videos, dante, c = 'green')
-    plt.plot(videos, stabilities, c = 'violet')
     plt.plot(videos, means, c = 'black', linewidth = 3)
+    plt.plot(videos, stabilities, c = 'violet')
     print(means)
     plt.show()
     
