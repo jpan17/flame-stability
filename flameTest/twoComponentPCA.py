@@ -20,9 +20,12 @@ def applyPCA (array, frameCount, test, videos, stability):
     for i in range(0, len(videos)):
         isStable = stability[i]
         for j in range(0, videos[i]):
-            if isStable == 1: 
+            if isStable >= 1.25: 
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'blue')
+            elif isStable >= .75:
+                plt.scatter(principalComponents[frames, 0],
+                            principalComponents[frames, 1], c = 'purple')
             else:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'red')

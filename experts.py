@@ -2,6 +2,7 @@ import csv
 import pandas
 import statistics
 import matplotlib.pyplot as plt
+import numpy as np 
 # =========================================================================== #
 
 def experts():
@@ -28,7 +29,7 @@ def experts():
         joe.append(df['joe'][i])
         dante.append(df['dante'][i])
         
-        stabilities.append(df['box'][i])
+        stabilities.append(df['centroid'][i])
         videos.append(int(fileName[12:14]))
 
 #     plt.plot(videos, joe, c = 'blue')
@@ -37,7 +38,7 @@ def experts():
 #     plt.plot(videos, dante, c = 'green')
     plt.plot(videos, means, c = 'black', linewidth = 3)
     plt.plot(videos, stabilities, c = 'violet')
-    print(means)
+    print(np.corrcoef(means, stabilities))
     plt.show()
     
 if __name__ == "__main__":
