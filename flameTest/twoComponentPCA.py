@@ -70,8 +70,8 @@ def applyPCA (array, frameCount, test, videos, stability):
     #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
     #                         c = "crimson")              
 
-    plt.xlabel("Principal Component 1")
-    plt.ylabel("Principal Component 2")
+    plt.xlabel("Principal Component 1", fontsize = 24)
+    plt.ylabel("Principal Component 2", fontsize = 24)
     
     # decide how you want to cluster them
     choice = input("Do you want to apply 1) kmeans 2) affinity propogation" +
@@ -96,7 +96,10 @@ def applyPCA (array, frameCount, test, videos, stability):
                               markerfacecolor = 'blue', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
                               label = 'Unstable',
-                              markerfacecolor = 'red', markersize = 10)]
+                              markerfacecolor = 'red', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Uncertain',
+                              markerfacecolor = 'purple', markersize = 10)]
     
     plt.legend(handles = legend_elements)
     print(pca.explained_variance_ratio_)
@@ -110,7 +113,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-        plt.title("2 component PCA on Bounding Box Pixel Values (every 10 frames)")
+        plt.title("2 component PCA on Bounding Box Pixel Luminosity", fontsize = 24)
         
     plt.show()
     return

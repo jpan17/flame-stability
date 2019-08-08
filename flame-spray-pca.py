@@ -80,7 +80,7 @@ def main():
     features = standardize(features)
     # print(frameCount)
     print(features.shape)
-    print(len(videos))
+    # print(len(videos))
     twoComponentPCA.applyPCA(features, frameCount, '', videos,
                              stability)
         
