@@ -15,10 +15,12 @@ def main():
     for i in range (0, len(df['File name'])):
         
         fileName = df['File name'][i]        
-        isStable = df['Stability'][i]
+        isStable = df['box'][i]
         
-        if isStable == 1:
+        if isStable > 1.25:
             stability = "stable"
+        elif isStable > .5:
+            stability = "uncertain"
         else:
             stability = "unstable"
             
@@ -41,10 +43,11 @@ def main():
                 
                 if frameCount % 30 == 0:
                     numFrames += 1
-                    name = "image_" + str(numFrames) + "_" + stability + ".png"
-                    print(name)
-                    cv2.imwrite('./imageData/' + name, frame)
-                
+                    if numFrames == 62:
+                        name = "image_" + str(numFrames) + "_" + stability + ".png"
+                        print(name)
+                        cv2.imwrite('./imageData/' + name, frame)
+                    
                 if cv2.waitKey(25) == ord('q'):
                     break
                 
