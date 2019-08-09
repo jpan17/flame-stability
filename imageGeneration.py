@@ -43,7 +43,7 @@ def main():
                 
                 if frameCount % 30 == 0:
                     numFrames += 1
-                    if numFrames == 62:
+                    if numFrames == 312:
                         name = "image_" + str(numFrames) + "_" + stability + ".png"
                         print(name)
                         cv2.imwrite('./imageData/' + name, frame)
