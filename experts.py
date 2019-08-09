@@ -3,6 +3,7 @@ import pandas
 import statistics
 import matplotlib.pyplot as plt
 import numpy as np 
+from matplotlib.lines import Line2D
 # =========================================================================== #
 
 def experts():
@@ -14,8 +15,9 @@ def experts():
     jess = []
     dante = []
     means = []
-    stabilities = []
-    
+    boxStabilities = []
+    centroidStabilities = []
+    boxStabilities = []
     videos = []
     
     for i in range(0, len(df['File name'])):
@@ -29,16 +31,39 @@ def experts():
         joe.append(df['joe'][i])
         dante.append(df['dante'][i])
         
-        stabilities.append(df['centroid'][i])
+        centroidStabilities.append(df['centroid'][i])
+        boxStabilities.append(df['box'][i])
         videos.append(int(fileName[12:14]))
 
-#     plt.plot(videos, joe, c = 'blue')
-#     plt.plot(videos, debolina, c = 'gold')
-#     plt.plot(videos, jess, c = 'crimson')
-#     plt.plot(videos, dante, c = 'green')
-    plt.plot(videos, means, c = 'black', linewidth = 3)
-    plt.plot(videos, stabilities, c = 'violet')
-    print(np.corrcoef(means, stabilities))
+    plt.plot(videos, joe, c = 'blue')
+    plt.plot(videos, debolina, c = 'gold')
+    plt.plot(videos, jess, c = 'crimson')
+    plt.plot(videos, dante, c = 'green')
+#     plt.plot(videos, means, c = 'black', linewidth = 2)
+    
+    legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
+                              label = 'Joe',
+                              markerfacecolor = 'blue', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Debolina',
+                              markerfacecolor = 'gold', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Jess',
+                              markerfacecolor = 'crimson', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Dante',
+                              markerfacecolor = 'green', markersize = 10)]
+    
+    plt.legend(handles = legend_elements)
+    
+    plt.xlabel('Video Number', fontsize = 24)
+    plt.ylabel('Stability (0 = unstable, 2 = stable)', fontsize = 24)
+    plt.title('Flame stability vs Video Number')
+    
+#     plt.plot(videos, stabilities, c = 'violet')
+
+    print(np.corrcoef(means, boxStabilities))
+    print(np.corrcoef(means, centroidStabilities))
     plt.show()
     
 if __name__ == "__main__":
