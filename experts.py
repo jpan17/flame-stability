@@ -39,7 +39,6 @@ def experts():
     plt.plot(videos, debolina, c = 'gold')
     plt.plot(videos, jess, c = 'crimson')
     plt.plot(videos, dante, c = 'green')
-#     plt.plot(videos, means, c = 'black', linewidth = 2)
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                               label = 'Joe',
@@ -58,9 +57,11 @@ def experts():
     
     plt.xlabel('Video Number', fontsize = 24)
     plt.ylabel('Stability (0 = unstable, 2 = stable)', fontsize = 24)
-    plt.title('Flame stability vs Video Number')
+    plt.title('Flame Stability vs Video Number', fontsize = 24)
     
-#     plt.plot(videos, stabilities, c = 'violet')
+#     plt.plot(videos, boxStabilities, c = 'violet')
+#     plt.plot(videos, centroidStabilities, c = 'orange')
+#     plt.plot(videos, means, c = 'black', linewidth = 2)
 
     print(np.corrcoef(means, boxStabilities))
     print(np.corrcoef(means, centroidStabilities))
