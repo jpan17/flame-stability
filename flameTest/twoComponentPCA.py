@@ -20,9 +20,12 @@ def applyPCA (array, frameCount, test, videos, stability):
     for i in range(0, len(videos)):
         isStable = stability[i]
         for j in range(0, videos[i]):
-            if isStable == 1: 
+            if isStable > 1.25: 
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'blue')
+            elif isStable > .5:
+                plt.scatter(principalComponents[frames, 0],
+                            principalComponents[frames, 1], c = 'purple')
             else:
                 plt.scatter(principalComponents[frames, 0],
                             principalComponents[frames, 1], c = 'red')
@@ -67,8 +70,8 @@ def applyPCA (array, frameCount, test, videos, stability):
     #             plt.scatter(principalComponents[i,0], principalComponents[i,1],
     #                         c = "crimson")              
 
-    plt.xlabel("Principal Component 1")
-    plt.ylabel("Principal Component 2")
+    plt.xlabel("Principal Component 1", fontsize = 24)
+    plt.ylabel("Principal Component 2", fontsize = 24)
     
     # decide how you want to cluster them
     choice = input("Do you want to apply 1) kmeans 2) affinity propogation" +
@@ -93,7 +96,10 @@ def applyPCA (array, frameCount, test, videos, stability):
                               markerfacecolor = 'blue', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
                               label = 'Unstable',
-                              markerfacecolor = 'red', markersize = 10)]
+                              markerfacecolor = 'red', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Uncertain',
+                              markerfacecolor = 'purple', markersize = 10)]
     
     plt.legend(handles = legend_elements)
     print(pca.explained_variance_ratio_)
@@ -107,7 +113,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-        plt.title("2 component PCA on Bounding Box Pixel Values (every 10 frames)")
+        plt.title("2 component PCA on Centroid Mean/Stddev Fluctuation", fontsize = 24)
         
     plt.show()
     return
@@ -142,8 +148,10 @@ def applyKmeans(array, clusterNumber, test):
             encircle(clustersX[i], clustersY[i], ec = "orange", fc = "gold", 
                     alpha = 0.2)
     
-    plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
-              "kmeans = " + str(clusterNumber))
+    # plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
+    #           "kmeans = " + str(clusterNumber))
+    plt.title("2 component PCA on Centroid Mean/Stddev Fluctuation", fontsize = 24)
+    
     plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
                 color = 'black')
     return

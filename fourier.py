@@ -34,7 +34,7 @@ def fourier():
         videoCount += 1
         
         fileName = df['File name'][i]
-        stabilities.append(df['Stability15'][i])
+        stabilities.append(df['box'][i])
         print(fileName)
         
         redFire = cv2.VideoCapture('./threshold60/threshold60-' + fileName)
@@ -197,19 +197,38 @@ def fourier():
                 rYCentroids = []
                 bYCentroids = []
                 
-                plt.ylabel("Amplitude")
-                plt.xlabel("Frequency (Hz)")
-                plt.title("Fourier Transform for Core Centroid Mean Deviations")
-                plt.plot(freq, np.abs(fourier))  
-                plt.show()
+                # plt.ylabel("Amplitude")
+                # plt.xlabel("Frequency (Hz)")
+                # plt.title("Fourier Transform for Core Centroid Mean Deviations")
+                # plt.plot(freq, np.abs(fourier))  
+                # plt.show()
                 break
     
     print(fouriers)
     for i in range(0, len(stabilities)):
-        if stabilities[i] == 1:
+        if stabilities[i] > 1.25:
             plt.scatter(videos[i], fouriers[i], c = 'blue')
+        elif stabilities[i] > .5:
+            plt.scatter(videos[i], fouriers[i], c = 'purple')
         else:
             plt.scatter(videos[i], fouriers[i], c = 'red')
+    
+    plt.title('Fourier Transform Maximum Amplitude vs Video Number', fontsize = 24)
+    plt.xlabel('Video Count', fontsize = 24)
+    plt.ylabel('Fourier Transform Maximum Amplitude', fontsize = 24)
+    
+    legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
+                            label = 'Stable',
+                            markerfacecolor = 'blue', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                            label = 'Unstable',
+                            markerfacecolor = 'red', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                            label = 'Uncertain',
+                            markerfacecolor = 'purple', markersize = 10)]
+
+    plt.legend(handles = legend_elements)
+    
     plt.show()
     redFire.release()
     blueFire.release()
