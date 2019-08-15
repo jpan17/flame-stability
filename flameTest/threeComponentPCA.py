@@ -6,10 +6,10 @@ from matplotlib.lines import Line2D
 from sklearn.cluster import AffinityPropagation
 from sklearn.cluster import KMeans
 from sklearn.cluster import MeanShift
-import graph3d
+# import graph3d
 # =========================================================================== #
 
-def applyPCA (array, name):
+def applyPCA (array, frameCount, name, videos, stability):
     
     pca = PCA(n_components = 3)
     
@@ -17,17 +17,33 @@ def applyPCA (array, name):
     
     fig = plt.figure()
     graph = fig.add_subplot(111, projection = '3d')
+    frames = 0
+    for i in range(0, len(videos) - 1):
+        for j in range(0, videos[i]):
+            
+            isStable = stability[i]
+            if isStable > 1.25: 
+                plt.scatter(principalComponents[frames, 0], principalComponents[frames, 1],
+                            principalComponents[frames, 2], c = 'blue')
+            elif isStable > .5:
+                plt.scatter(principalComponents[frames, 0], principalComponents[frames, 1],
+                            principalComponents[frames, 2], c = 'purple')
+            else:
+                plt.scatter(principalComponents[frames, 0], principalComponents[frames, 1],
+                            principalComponents[frames, 2], c = 'crimson')
+            
+            frames += 1
     
-    for i in range(0, len(principalComponents)):
-        if i >= 0 and i <= 100: 
-            graph.scatter(principalComponents[i,0], principalComponents[i,1],
-                        principalComponents[i,2], c = 'yellow')
-        elif i > 100 and i <= 260:
-            graph.scatter(principalComponents[i,0], principalComponents[i,1],
-                        principalComponents[i,2], c = 'orange')
-        else:
-            graph.scatter(principalComponents[i,0], principalComponents[i,1],
-                        principalComponents[i,2], c = 'crimson')
+    # for i in range(0, len(principalComponents)):
+    #     if i >= 0 and i <= 100: 
+    #         graph.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                     principalComponents[i,2], c = 'yellow')
+    #     elif i > 100 and i <= 260:
+    #         graph.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                     principalComponents[i,2], c = 'orange')
+    #     else:
+    #         graph.scatter(principalComponents[i,0], principalComponents[i,1],
+    #                     principalComponents[i,2], c = 'crimson')
         
     user = input("Do you want to apply 1) kmeans 2) affinity propogation" + 
                  " or 3) mean shift to this data? Press enter to skip" + 

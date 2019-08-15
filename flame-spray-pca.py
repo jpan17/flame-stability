@@ -4,6 +4,7 @@ import pandas
 from sklearn.preprocessing import StandardScaler
 import flameTest.luminance as luminance
 import flameTest.twoComponentPCA as twoComponentPCA
+import flameTest.threeComponentPCA as threeComponentPCA
 # =========================================================================== #
 
 # standardize the values in array
@@ -49,7 +50,7 @@ def main():
         vidWidth = width 
         test = ''
         tempStability = int(df['box'][i])
-        # stability.append(tempStability)
+        stability.append(tempStability)
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened() and numFrames < 250):
@@ -61,7 +62,7 @@ def main():
                 frameCount += 1
                 temp += luminance.lumArray(frame, vidHeight, vidWidth)
                 numFrames += 1
-                if frameCount % 1 == 0: 
+                if frameCount % 10 == 0: 
                     numFrames += 1
                     features.append(temp)
                     temp = []
@@ -79,11 +80,12 @@ def main():
     # print(features)
     features = standardize(features)
     # print(frameCount)
-    print(features.shape)
+    # print(features.shape)
     # print(len(videos))
-    twoComponentPCA.applyPCA(features, frameCount, '', videos,
-                             stability)
-        
+    # twoComponentPCA.applyPCA(features, frameCount, '', videos,
+                            #  stability)
+    threeComponentPCA.applyPCA(features, frameCount, '', videos,
+                               stability)
     fire.release()
     cv2.destroyAllWindows()
    
