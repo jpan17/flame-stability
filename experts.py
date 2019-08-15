@@ -39,22 +39,23 @@ def experts():
 #     plt.scatter(videos, debolina, c = 'gold', alpha = .7, marker = 'o')
 #     plt.scatter(videos, jess, c = 'crimson', alpha = 0.7, marker = 'o')
 #     plt.scatter(videos, dante, c = 'green', alpha = 0.7, marker = 'o')
-#     axes = plt.gca()
-#     axes.set_xlim([0, 53])
-#     axes.set_ylim([-2, 4])
+    axes = plt.gca()
+    axes.set_xlim([0, 53])
+    axes.set_ylim([-2, 4])
     
-#     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-#                               label = 'Joe',
-#                               markerfacecolor = 'cyan', markersize = 10),
-#                        Line2D([0],[0], marker = 'o', color = 'w',
-#                               label = 'Debolina',
-#                               markerfacecolor = 'gold', markersize = 10),
-#                        Line2D([0],[0], marker = 'o', color = 'w',
-#                               label = 'Jess',
-#                               markerfacecolor = 'crimson', markersize = 10),
-#                        Line2D([0],[0], marker = 'o', color = 'w',
-#                               label = 'Dante',
-#                               markerfacecolor = 'green', markersize = 10)]
+    legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
+                              label = 'Means',
+                              markerfacecolor = 'black', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Bounding Box Stabilities (r = 0.89)',
+                              markerfacecolor = 'violet', markersize = 10),
+                       Line2D([0],[0], marker = 'o', color = 'w',
+                              label = 'Centroid Stabilities (r = 0.40)',
+                              markerfacecolor = 'orange', markersize = 10)]
+                     #   Line2D([0],[0], marker = 'o', color = 'w',
+                     #          label = 'Dante',
+                     #          markerfacecolor = 'green', markersize = 10)]
+
     
     plt.legend(handles = legend_elements, fontsize = 18)
     
