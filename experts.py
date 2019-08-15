@@ -53,7 +53,7 @@ def experts():
                               label = 'Dante',
                               markerfacecolor = 'green', markersize = 10)]
     
-    plt.legend(handles = legend_elements)
+    plt.legend(handles = legend_elements, fontsize = 24)
     
     plt.xlabel('Video Number', fontsize = 24)
     plt.ylabel('Stability (0 = unstable, 2 = stable)', fontsize = 24)
