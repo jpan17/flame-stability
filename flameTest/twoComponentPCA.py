@@ -17,7 +17,7 @@ def applyPCA (array, frameCount, test, videos, stability):
     principalComponents = pca.fit_transform(array)
     frames = 0
     
-    for i in range(0, len(videos)):
+    for i in range(0, len(videos) - 1):
         isStable = stability[i]
         for j in range(0, videos[i]):
             if isStable > 1.25: 
@@ -101,7 +101,7 @@ def applyPCA (array, frameCount, test, videos, stability):
                               label = 'Uncertain',
                               markerfacecolor = 'purple', markersize = 10)]
     
-    plt.legend(handles = legend_elements)
+    plt.legend(handles = legend_elements, fontsize = 18)
     print(pca.explained_variance_ratio_)
     
     if choice == "1":
@@ -113,7 +113,7 @@ def applyPCA (array, frameCount, test, videos, stability):
         applyMeanShift(principalComponents, test)
     else:
         # plt.title("2 Component PCA on " + test + " Pixel Values")
-        plt.title("2 component PCA on Centroid Mean/Stddev Fluctuation", fontsize = 24)
+        plt.title("2 component PCA on Bounding Box Pixel Luminosity (per frame)", fontsize = 24)
         
     plt.show()
     return
@@ -150,7 +150,7 @@ def applyKmeans(array, clusterNumber, test):
     
     # plt.title("2 Component PCA on " + test + " Values (per pixel) with " + 
     #           "kmeans = " + str(clusterNumber))
-    plt.title("2 component PCA on Centroid Mean/Stddev Fluctuation", fontsize = 24)
+    plt.title("2 component PCA on Bounding Box Pixel Luminosity (per frame)", fontsize = 24)
     
     plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],
                 color = 'black')
