@@ -23,6 +23,14 @@ def autocorrelation():
         fileName = df['File name'][i]
         fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
         print(df['File name'][i])
+        isStable = df['box'][i]
+        
+        if isStable > 1.25:
+            stability = "stable"
+        elif isStable > .5:
+            stability = "uncertain"
+        else:
+            stability = "unstable"
         
         if (fire.isOpened() == False):
             print("Error opening video file or stream")
@@ -48,14 +56,15 @@ def autocorrelation():
                     break
                 
             else:       
-                plot_acf(series, lags = 50) 
-                plt.savefig('acf-' + fileName + '.png')
+                plot_acf(series, lags = 250) 
+                plt.title('Autocorrelation ' + stability)
+                plt.savefig('acf-' + fileName +'.png')
                 plt.close()
-                plot_pacf(series, lags = 50)
-                plt.savefig('pacf' + fileName + '.png')
+                # plot_pacf(series, lags = 50)
+                # plt.savefig('pacf' + fileName + '.png')
                 # plt.show() 
                 # plt.show()
-                plt.close()
+                # plt.close()
                 series = []
                 break
     

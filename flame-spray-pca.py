@@ -25,7 +25,7 @@ def main():
     temp = []
     tempStability = 1
     
-    for i in range(0, len(df['File name'])):
+    for i in range(0, len(df['File name']) - 1):
         
         numFrames = 0
         
@@ -61,7 +61,7 @@ def main():
                 frameCount += 1
                 temp += luminance.lumArray(frame, vidHeight, vidWidth)
                 numFrames += 1
-                if frameCount % 10 == 0: 
+                if frameCount % 1 == 0: 
                     numFrames += 1
                     features.append(temp)
                     temp = []

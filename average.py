@@ -33,7 +33,7 @@ def main():
     totalAverage = 0
     averages = []
         
-    fileName = "flame-spray-53.avi"
+    fileName = "flame-spray-02.avi"
     fire = cv2.VideoCapture('./fireFiles/' + fileName)
         
     ret, frame = fire.read()
@@ -77,7 +77,7 @@ def main():
                               label = 'Luminance difference from mean',
                               markerfacecolor = 'red', markersize = 10)]
     
-    plt.legend(handles = legend_elements)
+    plt.legend(handles = legend_elements, fontsize = 18)
     plt.plot(frames, averages, c = 'red')
     plt.xlabel('Time (frames)', fontsize = 24)
     plt.ylabel('Luminance difference from average', fontsize = 24)

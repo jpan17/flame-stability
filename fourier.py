@@ -213,9 +213,9 @@ def fourier():
         else:
             plt.scatter(videos[i], fouriers[i], c = 'red')
     
-    plt.title('Fourier Transform Maximum Amplitude vs Video Number', fontsize = 24)
+    plt.title('Fourier Transform Frequency vs Video Number', fontsize = 24)
     plt.xlabel('Video Count', fontsize = 24)
-    plt.ylabel('Fourier Transform Maximum Amplitude', fontsize = 24)
+    plt.ylabel('Fourier Transform Frequency', fontsize = 24)
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                             label = 'Stable',
