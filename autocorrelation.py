@@ -18,57 +18,69 @@ def autocorrelation():
     frames = []
     numFrames = 0
     
-    for i in range(0, len(df['File name'])):
+    # for i in range(0, len(df['File name'])):
         
-        fileName = df['File name'][i]
-        fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
-        print(df['File name'][i])
-        isStable = df['box'][i]
+    fileName = "flame-spray-02.avi"
+    fire = cv2.VideoCapture('./fireFiles/' + fileName)
+    # print(df['File name'][i])
+    isStable = 2
+    
+    if isStable > 1.25:
+        stability = "stable"
+    elif isStable > .5:
+        stability = "uncertain"
+    else:
+        stability = "unstable"
+    
+    if (fire.isOpened() == False):
+        print("Error opening video file or stream")
         
-        if isStable > 1.25:
-            stability = "stable"
-        elif isStable > .5:
-            stability = "uncertain"
-        else:
-            stability = "unstable"
+    ret, frame = fire.read()
+    height, width, channels = frame.shape
+    vidHeight = height
+    vidWidth = width
+    
+    while (fire.isOpened()):
         
-        if (fire.isOpened() == False):
-            print("Error opening video file or stream")
-            
         ret, frame = fire.read()
-        height, width, channels = frame.shape
-        vidHeight = height
-        vidWidth = width
         
-        while (fire.isOpened()):
+        if ret == True:
             
-            ret, frame = fire.read()
+            cv2.imshow('Fire', frame)
+            numFrames += 1 
+            temp = luminance.lumArray(frame, vidHeight, vidWidth)
+            series.append(statistics.mean(temp))
+            frames.append(numFrames)
             
-            if ret == True:
-                
-                cv2.imshow('Fire', frame)
-                numFrames += 1 
-                temp = luminance.lumArray(frame, vidHeight, vidWidth)
-                series.append(statistics.mean(temp))
-                frames.append(numFrames)
-                
-                if cv2.waitKey(25) == ord('q'):
-                    break
-                
-            else:       
-                plot_acf(series, lags = 250) 
-                plt.title('Autocorrelation ' + stability)
-                plt.savefig('acf-' + fileName +'.png')
-                plt.close()
-                # plot_pacf(series, lags = 50)
-                # plt.savefig('pacf' + fileName + '.png')
-                # plt.show() 
-                # plt.show()
-                # plt.close()
-                series = []
+            if cv2.waitKey(25) == ord('q'):
                 break
+            
+        else:       
+            # plot_acf(series, lags = 250) 
+            # plt.title('Autocorrelation ' + stability)
+            # plt.savefig('acf-' + fileName +'.png')
+            # plt.close()
+            # # plot_pacf(series, lags = 50)
+            # # plt.savefig('pacf' + fileName + '.png')
+            # # plt.show() 
+            # # plt.show()
+            # # plt.close()
+            # series = []
+            break
     
+    plt.plot(frames, series)
+    plt.title('Mean Luminance of Bounding Box Pixels vs Time (frames)', fontsize = 24)
+    plt.xlabel('Time (frames)', fontsize = 24)
+    plt.ylabel('Mean Luminance', fontsize = 24)
     
+    # plot_acf(series, lags = 250) 
+    # plt.title('Autocorrelation flame-spray-02.avi (unstable)', fontsize = 24)
+    # plt.xlabel('Lag (frames)', fontsize = 24)
+    # plt.ylabel('Correlation Coefficient')
+    plt.show()
+    # plt.close()
+            
+    series = []
     
     fire.release()
     cv2.destroyAllWindows()
