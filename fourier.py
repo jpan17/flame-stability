@@ -38,6 +38,8 @@ def fourier():
     stabilities = []
     
     fouriers = []
+    fourierMeans = []
+    fourierMax = []
     
     for i in range(0, len(df['File name'])):   
         
@@ -97,6 +99,7 @@ def fourier():
                 # print(fourier)
                 result = np.argmax(fourier)
                 print("Result = ", str(result))
+                fourierMax.append(result)
                 frequency = f[result]
                 print("Frequency = " + str(frequency))
                 fouriers.append(frequency)
@@ -104,6 +107,10 @@ def fourier():
                 print("Video Count = " + str(videoCount))
                 
                 averages = []
+                
+                fourier = np.abs(fourier)
+                fourierAverage = sum(fouriers) / len(fouriers)
+                fourierMeans.append(fourierAverage)
                 
                 # plt.ylabel("Amplitude", fontsize = 24)
                 # plt.xlabel("Frequency (Hz)", fontsize = 24)
@@ -115,15 +122,15 @@ def fourier():
     print(fouriers)
     for i in range(0, len(stabilities)):
         if stabilities[i] > 1.25:
-            plt.scatter(videos[i], fouriers[i], c = 'blue')
+            plt.scatter(fourierMax[i], fourierMeans[i], c = 'blue')
         elif stabilities[i] > .5:
-            plt.scatter(videos[i], fouriers[i], c = 'purple')
+            plt.scatter(fourierMax[i], fourierMeans[i], c = 'purple')
         else:
-            plt.scatter(videos[i], fouriers[i], c = 'red')
+            plt.scatter(fourierMax[i], fourierMeans[i], c = 'red')
     
-    plt.title('Fourier Transform Frequency vs Video Number', fontsize = 24)
-    plt.xlabel('Video Count', fontsize = 24)
-    plt.ylabel('Fourier Transform Frequency', fontsize = 24)
+    plt.title('Fourier Transform Max Amplitude vs Mean Amplitude', fontsize = 24)
+    plt.xlabel('Max Amplitude', fontsize = 24)
+    plt.ylabel('Mean Amplitude', fontsize = 24)
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                             label = 'Stable',
