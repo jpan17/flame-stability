@@ -98,19 +98,23 @@ def fourier():
                 # fourier = np.abs(fourier)
                 # print(fourier)
                 result = np.argmax(fourier)
-                print("Result = ", str(result))
-                fourierMax.append(result)
+                # print("Result = ", str(result))
+                fourierMax.append(np.max(fourier))
                 frequency = f[result]
-                print("Frequency = " + str(frequency))
+                # print("Frequency = " + str(frequency))
                 fouriers.append(frequency)
                 videos.append(videoCount)
-                print("Video Count = " + str(videoCount))
+                # print("Video Count = " + str(videoCount))
                 
                 averages = []
                 
                 fourier = np.abs(fourier)
-                fourierAverage = sum(fouriers) / len(fouriers)
+                fourierAverage = sum(fourier) / len(fourier)
+                # print(result)
+                print(fourierAverage)
                 fourierMeans.append(fourierAverage)
+                
+                print(np.max(fourier) / fourierAverage)
                 
                 # plt.ylabel("Amplitude", fontsize = 24)
                 # plt.xlabel("Frequency (Hz)", fontsize = 24)
@@ -122,15 +126,15 @@ def fourier():
     print(fouriers)
     for i in range(0, len(stabilities)):
         if stabilities[i] > 1.25:
-            plt.scatter(fourierMax[i], fourierMeans[i], c = 'blue')
+            plt.scatter(fouriers[i], fourierMax[i] / fourierMeans[i], c = 'blue')
         elif stabilities[i] > .5:
-            plt.scatter(fourierMax[i], fourierMeans[i], c = 'purple')
+            plt.scatter(fouriers[i], fourierMax[i] / fourierMeans[i], c = 'purple')
         else:
-            plt.scatter(fourierMax[i], fourierMeans[i], c = 'red')
+            plt.scatter(fouriers[i], fourierMax[i] / fourierMeans[i], c = 'red')
     
-    plt.title('Fourier Transform Max Amplitude vs Mean Amplitude', fontsize = 24)
-    plt.xlabel('Max Amplitude', fontsize = 24)
-    plt.ylabel('Mean Amplitude', fontsize = 24)
+    plt.title('Fourier Transform Video Number vs Frequency', fontsize = 24)
+    plt.xlabel('Frequency (Hz)', fontsize = 24)
+    plt.ylabel('Normalized Maximum Amplitude', fontsize = 24)
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                             label = 'Stable',
@@ -142,7 +146,7 @@ def fourier():
                             label = 'Uncertain',
                             markerfacecolor = 'purple', markersize = 10)]
 
-    plt.legend(handles = legend_elements)
+    plt.legend(handles = legend_elements, fontsize = 20)
     
     plt.show()
     
