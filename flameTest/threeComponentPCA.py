@@ -90,7 +90,7 @@ def applyPCA (array, frameCount, name, videos, stability):
     #           choice + " clustering")
     
     # title = "3 Component PCA on Frame " + name + " Values (per pixel) with " + choice + " clustering"
-    
+    print(pca.explained_variance_ratio_)
     plt.show()
     return
     
