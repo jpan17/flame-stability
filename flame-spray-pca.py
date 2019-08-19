@@ -50,7 +50,7 @@ def main():
         vidWidth = width 
         test = ''
         tempStability = int(df['box'][i])
-        stability.append(tempStability)
+        # stability.append(tempStability)
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened() and numFrames < 250):
