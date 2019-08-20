@@ -20,7 +20,7 @@ def autocorrelation():
     
     # for i in range(0, len(df['File name'])):
         
-    fileName = "flame-spray-02.avi"
+    fileName = "flame-spray-33.avi"
     fire = cv2.VideoCapture('./fireFiles/' + fileName)
     # print(df['File name'][i])
     isStable = 2
@@ -74,7 +74,7 @@ def autocorrelation():
     plt.ylabel('Mean Luminance', fontsize = 24)
     
     # plot_acf(series, lags = 250) 
-    # plt.title('Autocorrelation flame-spray-02.avi (unstable)', fontsize = 24)
+    # plt.title('Autocorrelation flame-spray-33.avi (stable)', fontsize = 24)
     # plt.xlabel('Lag (frames)', fontsize = 24)
     # plt.ylabel('Correlation Coefficient')
     plt.show()

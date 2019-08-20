@@ -34,10 +34,10 @@ def main():
         fire = cv2.VideoCapture('./fireFiles/' + df['File name'][i])
         print(df['File name'][i])
         
-        # if i > 0: 
-        #     features.append(temp)
-        #     temp = []
-        #     videos.append(1)
+        if i > 0: 
+            features.append(temp)
+            temp = []
+            videos.append(1)
         
         # print error message if you can't read it in
         if (fire.isOpened() == False):
@@ -50,7 +50,7 @@ def main():
         vidWidth = width 
         test = ''
         tempStability = int(df['box'][i])
-        # stability.append(tempStability)
+        stability.append(tempStability)
         
         # display the video until 'q' is pressed or until it terminates
         while (fire.isOpened() and numFrames < 250):
@@ -62,12 +62,12 @@ def main():
                 frameCount += 1
                 temp += luminance.lumArray(frame, vidHeight, vidWidth)
                 numFrames += 1
-                if frameCount % 10 == 0: 
-                    numFrames += 1
-                    features.append(temp)
-                    temp = []
-                    videos.append(1)
-                    stability.append(tempStability)
+                # if frameCount % 1 == 0: 
+                #     numFrames += 1
+                #     features.append(temp)
+                #     temp = []
+                #     videos.append(1)
+                #     stability.append(tempStability)
                 
                 # terminates the video before it finishes
                 if cv2.waitKey(25) == ord('q'):
@@ -75,7 +75,7 @@ def main():
                 
             else:
                 # videos.append(numFrames)
-                # temp = []
+                temp = []
                 break
     # print(features)
     features = standardize(features)

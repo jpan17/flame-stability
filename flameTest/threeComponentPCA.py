@@ -81,6 +81,7 @@ def applyPCA (array, frameCount, name, videos, stability):
         applyMeanShift(principalComponents, graph)
     else:
         # title = "3 Component PCA on Frame " + name + " Values (per pixel)"
+        print(pca.explained_variance_ratio_)
         plt.title("3 Component PCA on Bounding Box Luminosity Values (per video)", fontsize = 24)
         plt.show()
         return
@@ -90,7 +91,7 @@ def applyPCA (array, frameCount, name, videos, stability):
     #           choice + " clustering")
     
     # title = "3 Component PCA on Frame " + name + " Values (per pixel) with " + choice + " clustering"
-    
+    print(pca.explained_variance_ratio_)
     plt.show()
     return
     

@@ -7,6 +7,21 @@ from matplotlib.lines import Line2D
 from scipy.fftpack import fft, ifft
 # =========================================================================== #
 
+def averageBox(image):
+    
+    count = 0
+    total = 0
+    frame = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+    l, a, b = cv2.split(frame)
+    
+    for row in range(220, 270):
+        for col in range(430, 480):
+            total += l[row][col]
+            count += 1
+            
+    average = total / count
+    return average
+
 def fourier():
     
     df = pandas.read_csv('EtOH_flamemap.csv')
@@ -17,20 +32,18 @@ def fourier():
     features = []
     videos = []
     
-    wXCentroids = []
-    rXCentroids = []
-    bXCentroids = []
-    wYCentroids = []
-    rYCentroids = []
-    bYCentroids = []
-    
+    averages = []
+   
     frames = []
     stabilities = []
     
     fouriers = []
+    fourierMeans = []
+    fourierMax = []
     
     # for i in range(0, len(df['File name'])):   
         
+<<<<<<< HEAD
     videoCount += 1
     
     # fileName = df['File name'][i]
@@ -94,9 +107,41 @@ def fourier():
                 wX, wY = 0, 0
                         
             cv2.circle(moreBlended, (int(wX), int(wY)), 5, (255, 255, 255), -1)
+=======
+        videoCount += 1
+        
+        fileName = df['File name'][i]
+        # fileName = 'flame-spray-33.avi'
+        stabilities.append(df['box'][i])
+        # stabilities.append(0)
+        print(fileName)
+        
+        fire = cv2.VideoCapture('./fireFiles/' + fileName)
+        
+        ret, frame = fire.read()
+        height, width, channels = frame.shape
+        frameWidth = width
+        frameHeight = height
+        
+        if (fire.isOpened() == False):
+            print("Error opening video file or stream")
+            
+        while (fire.isOpened()):
+            
+            ret, frame = fire.read()
+            
+            if ret == True:
+                
+                frameCount += 1
+                cv2.imshow('Default', frame)
+                
+                averages.append(averageBox(frame))
+                frames.append(frameCount)
+>>>>>>> expert-opinions
                     
             cv2.circle(moreBlended, (int(rX), int(rY)), 5, (255, 255, 255), -1)
                     
+<<<<<<< HEAD
             cv2.circle(moreBlended, (int(bX), int(bY)), 5, (255, 255, 255), -1)
                 
             wXCentroids.append(wX)
@@ -109,10 +154,21 @@ def fourier():
             frames.append(frameCount)
             
             cv2.imshow("Centroids", moreBlended)
+=======
+            else:  
+                
+                average = sum(averages) / len(averages) 
+                averages[:] = [x - average for x in averages]    
+                
+                N = len(averages)
+                fourier = fft(averages) / N # 1 / N is a normalization factor
+                fourier = fourier[range(int(N / 2))]
+>>>>>>> expert-opinions
                 
             if cv2.waitKey(25) == ord('q'):
                 break
                 
+<<<<<<< HEAD
         else:
             wXAverage = sum(wXCentroids) / len(wXCentroids)
             wYAverage = sum(wYCentroids) / len(wYCentroids)
@@ -205,19 +261,49 @@ def fourier():
             plt.plot(freq, np.abs(fourier))  
             plt.show()
             break
+=======
+                f = np.linspace(0, N * T, N / 2) # time vector
+                # fourier = np.abs(fourier)
+                # print(fourier)
+                result = np.argmax(fourier)
+                # print("Result = ", str(result))
+                fourierMax.append(np.max(fourier))
+                frequency = f[result]
+                # print("Frequency = " + str(frequency))
+                fouriers.append(frequency)
+                videos.append(videoCount)
+                # print("Video Count = " + str(videoCount))
+                
+                averages = []
+                
+                fourier = np.abs(fourier)
+                fourierAverage = sum(fourier) / len(fourier)
+                # print(result)
+                print(fourierAverage)
+                fourierMeans.append(fourierAverage)
+                
+                print(np.max(fourier) / fourierAverage)
+                
+                # plt.ylabel("Amplitude", fontsize = 24)
+                # plt.xlabel("Frequency (Hz)", fontsize = 24)
+                # plt.title("Fourier Transform for Bounding Box Luminosity Mean Deviations", fontsize = 24)
+                # plt.plot(freq, np.abs(fourier))  
+                # plt.show()
+                break
+>>>>>>> expert-opinions
     
     print(fouriers)
     for i in range(0, len(stabilities)):
         if stabilities[i] > 1.25:
-            plt.scatter(videos[i], fouriers[i], c = 'blue')
+            plt.scatter(fouriers[i], fourierMax[i] / fourierMeans[i], c = 'blue')
         elif stabilities[i] > .5:
-            plt.scatter(videos[i], fouriers[i], c = 'purple')
+            plt.scatter(fouriers[i], fourierMax[i] / fourierMeans[i], c = 'purple')
         else:
-            plt.scatter(videos[i], fouriers[i], c = 'red')
+            plt.scatter(fouriers[i], fourierMax[i] / fourierMeans[i], c = 'red')
     
-    plt.title('Fourier Transform Frequency vs Video Number', fontsize = 24)
-    plt.xlabel('Video Count', fontsize = 24)
-    plt.ylabel('Fourier Transform Frequency', fontsize = 24)
+    plt.title('Fourier Transform Video Number vs Frequency', fontsize = 24)
+    plt.xlabel('Frequency (Hz)', fontsize = 24)
+    plt.ylabel('Normalized Maximum Amplitude', fontsize = 24)
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
                             label = 'Stable',
@@ -229,12 +315,10 @@ def fourier():
                             label = 'Uncertain',
                             markerfacecolor = 'purple', markersize = 10)]
 
-    plt.legend(handles = legend_elements)
+    plt.legend(handles = legend_elements, fontsize = 20)
     
     plt.show()
-    redFire.release()
-    blueFire.release()
-    whiteFire.release()
+    
     cv2.destroyAllWindows()
     
 if __name__ == "__main__":
