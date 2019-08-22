@@ -6,10 +6,10 @@ from matplotlib.lines import Line2D
 from sklearn.cluster import AffinityPropagation
 from sklearn.cluster import KMeans
 from sklearn.cluster import MeanShift
-# import graph3d
+import graph3d
 # =========================================================================== #
 
-def applyPCA (array, frameCount, name, videos, stability):
+def applyPCA (array, name):
     
     pca = PCA(n_components = 3)
     
@@ -17,31 +17,14 @@ def applyPCA (array, frameCount, name, videos, stability):
     
     fig = plt.figure()
     graph = fig.add_subplot(111, projection = '3d')
-    frames = 0
-    # for i in range(0, len(videos) - 1):
-    #     for j in range(0, videos[i]):
-            
-    #         isStable = stability[i]
-    #         if isStable > 1.25: 
-    #             plt.scatter(principalComponents[frames, 0], principalComponents[frames, 1],
-    #                         principalComponents[frames, 2], c = 'blue')
-    #         elif isStable > .5:
-    #             plt.scatter(principalComponents[frames, 0], principalComponents[frames, 1],
-    #                         principalComponents[frames, 2], c = 'purple')
-    #         else:
-    #             plt.scatter(principalComponents[frames, 0], principalComponents[frames, 1],
-    #                         principalComponents[frames, 2], c = 'crimson')
-            
-    #         frames += 1
     
     for i in range(0, len(principalComponents)):
-        isStable = stability[i]
-        if isStable > 1.25: 
+        if i >= 0 and i <= 100: 
             graph.scatter(principalComponents[i,0], principalComponents[i,1],
-                        principalComponents[i,2], c = 'blue')
-        elif isStable > .5:
+                        principalComponents[i,2], c = 'yellow')
+        elif i > 100 and i <= 260:
             graph.scatter(principalComponents[i,0], principalComponents[i,1],
-                        principalComponents[i,2], c = 'purple')
+                        principalComponents[i,2], c = 'orange')
         else:
             graph.scatter(principalComponents[i,0], principalComponents[i,1],
                         principalComponents[i,2], c = 'crimson')
@@ -50,23 +33,23 @@ def applyPCA (array, frameCount, name, videos, stability):
                  " or 3) mean shift to this data? Press enter to skip" + 
                  " cluster step. \n")
     
-    graph.set_xlabel("Component 1", fontsize = 24)
-    graph.set_ylabel("Component 2", fontsize = 24)
-    graph.set_zlabel("Component 3", fontsize = 24)
+    graph.set_xlabel("Component 1")
+    graph.set_ylabel("Component 2")
+    graph.set_zlabel("Component 3")
     
     title = ''
     
     legend_elements = [Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'Stable',
-                              markerfacecolor = 'Blue', markersize = 10),
+                              label = 'Beginning (stable)',
+                              markerfacecolor = 'yellow', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w',
-                              label = 'Uncertain',
-                              markerfacecolor = 'purple', markersize = 10),
+                              label = 'Middle (unstable)',
+                              markerfacecolor = 'orange', markersize = 10),
                        Line2D([0],[0], marker = 'o', color = 'w', 
-                              label = 'Unstable',
+                              label = 'End (stable)',
                               markerfacecolor = 'crimson', markersize = 10)]
     
-    plt.legend(handles = legend_elements, fontsize = 18)
+    plt.legend(handles = legend_elements)
     
     choice = ''
     if user == '1':
@@ -80,18 +63,17 @@ def applyPCA (array, frameCount, name, videos, stability):
         choice = 'mean shift'
         applyMeanShift(principalComponents, graph)
     else:
-        # title = "3 Component PCA on Frame " + name + " Values (per pixel)"
-        print(pca.explained_variance_ratio_)
-        plt.title("3 Component PCA on Bounding Box Luminosity Values (per video)", fontsize = 24)
+        title = "3 Component PCA on Frame " + name + " Values (per pixel)"
+        plt.title("3 Component PCA on Frame " + name + " Values (per pixel)")
         plt.show()
         return
         
     
-    # plt.title("3 Component PCA on Frame " + name + " Values (per pixel) with " +
-    #           choice + " clustering")
+    plt.title("3 Component PCA on Frame " + name + " Values (per pixel) with " +
+              choice + " clustering")
     
-    # title = "3 Component PCA on Frame " + name + " Values (per pixel) with " + choice + " clustering"
-    print(pca.explained_variance_ratio_)
+    title = "3 Component PCA on Frame " + name + " Values (per pixel) with " + choice + " clustering"
+    
     plt.show()
     return
     
